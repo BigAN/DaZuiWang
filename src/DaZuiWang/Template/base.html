@@ -1,0 +1,43 @@
+{% load staticfiles %}
+<!doctype html>
+<html>
+    <head>
+        <title>Shopping Cart</title>
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/reset.css'%}"/>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css'%}"/>
+    </head>
+
+    <body>
+        <header>
+        <div id="logo">
+            <a href="{% url 'index' %}">{{ store.name }}'s Shopping Cart</a>
+        </div>
+        {% if user.is_authenticated %}
+           <div class="user-actions">
+                <a href="{% url 'logout' %}">logout</a>
+           </div>
+           <div class="welcome-line">
+                Welcome, {{user.username}}! 
+                | <a href="{% url 'cart' %}">Cart: <span id="cart-total">{{cart.total}}</span></a> 
+                | <a href="{% url 'past_orders' %}">Past Orders</a>
+           </div>
+        {% endif %}
+        </header>
+        {% if messages %}
+            <ul class="flash">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        {% block body %}
+        {% endblock %}
+
+
+        <!-- JS Scripts -->
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
+        <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+    </body>
+</html>

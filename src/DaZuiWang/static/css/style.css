@@ -1,0 +1,193 @@
+body {
+    background-color: #eee;
+    font-family: 'Open Sans', sans-serif;
+    margin: 10px;
+}
+
+a {
+    text-decoration: none;
+}
+
+.hidden {
+    display: none;
+}
+
+.flash {
+    background-color: yellow;
+    text-align: center;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+
+header {
+    padding-top: 15px;
+    border-bottom: 10px solid #000;
+    border-left: 1px solid #000;
+    border-right: 1px solid #000;
+    border-top: 1px solid #000;
+    margin-bottom: 10px;
+    border-radius: 7px;
+    background-color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    position: relative;
+}
+
+
+header #logo {
+    display: block;
+    font-size: 40px;
+    font-weight: bold;
+    color: black;
+    padding-left: 20px;
+    padding-bottom: 20px;
+    font-family: Verdana, Geneva, sans-serif;
+}
+
+header #logo a {
+    color: black;
+}
+
+header .welcome-line a,
+header .user-actions a {
+    color: rgb(63, 63, 255);
+}
+
+
+header .user-actions {
+    position: absolute;
+    right: 5px;
+    top: 2px;
+}
+
+header .welcome-line {
+    position: absolute;
+    right: 5px;
+    bottom: 2px;
+}
+
+
+form {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 10px 20px;
+    margin: 10px auto;
+}
+
+form.single-button-form {
+    background-color: inherit;
+    border-radius: inherit;
+    padding: inherit;
+    margin: inherit;
+}
+h2 {
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+}
+form p {
+    margin-top: 2px;
+}
+#login-form {
+    width: 266px;
+}
+
+#register-form {
+    width: 316px;
+}
+
+form label {
+    display: inline-block;
+    text-align: right;
+    margin-right: 5px;
+}
+
+#login-form label {
+    width: 100px;
+}
+#register-form label {
+    width: 150px;
+}
+
+#checkout-form label {
+    width: 154px;
+}
+
+#checkout-form .errorlist {
+    margin-left: 162px;
+}
+
+#checkout-form {
+    width: 325px;
+}
+#checkout-form input[type="submit"] {
+    margin-left: 162px;
+}
+
+#checkout-form input,
+#checkout-form select {
+    width: 150px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+form .form-actions {
+    float: right;
+    text-align: right;
+}
+
+.clear {
+    clear: both;
+}
+
+.errorlist {
+    font-size: 12px;
+    color: red;
+    font-weight: bold;
+}
+
+#login-form .errorlist {
+    margin-left: 110px;
+}
+
+#register-form .errorlist {
+    margin-left: 160px;
+}
+
+.product {
+    display: inline-block;
+    width: 200px;
+    vertical-align: top;
+}
+
+.product img {
+    width: 100%;
+}
+
+#store h1,
+#cart h1,
+#order h1 {
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+#cart .cart-actions,
+#order .order-actions {
+
+    font-weight: bold;
+    border-top: 1px solid black;
+    margin-top: 10px;
+    padding-top: 5px;
+}
+
+#cart .cart-actions .checkout {
+    float: right;
+}
+
+#order .billing-information {
+    border-top: 1px solid black;
+}
+
+
