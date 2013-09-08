@@ -1,5 +1,5 @@
 # Django settings for DaZuiWang project.
-
+import os
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -49,13 +49,16 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = ''
+ROOT=os.path.join(os.path.abspath(os.path.dirname(__file__)),
+                  '..',)
+
+MEDIA_ROOT = os.path.join(ROOT,'media')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
-MEDIA_URL = ''
-
+MEDIA_URL = '/media/'
+    
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
@@ -68,7 +71,12 @@ STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
-    # Put strings here, like "/home/html/static" or "C:/www/django/static".
+                    os.path.join(ROOT,'static'),
+                    os.path.join(ROOT,'images'),
+                    os.path.join(ROOT,'js'),
+                    os.path.join(ROOT,'css'),
+            
+# strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
 )
@@ -92,6 +100,7 @@ TEMPLATE_LOADERS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    'middleware.middleware.SubdomainMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     #'django.middleware.csrf.CsrfViewMiddleware',
@@ -105,13 +114,15 @@ ROOT_URLCONF = 'DaZuiWang.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'DaZuiWang.wsgi.application'
+    
 
 TEMPLATE_DIRS = (
-    "E:\workspace eclipse\DaZuiWang\src\DaZuiWang\Template"
+    os.path.join(ROOT,'Template'),
+    
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
 )
+    # Don't forget to use absolute paths, not relative paths.
 
 INSTALLED_APPS = (
     'django.contrib.admin',
@@ -121,12 +132,14 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'Cuisine'
+    'stores',
+    'bootstrap',
+    
+)
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
-)
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
@@ -156,3 +169,14 @@ LOGGING = {
         },
     }
 }
+LOGIN_URL='/users/login/'
+
+TEMPLATE_CONTEXT_PROCESSORS=(
+    "django.contrib.auth.context_processors.auth",
+    "django.core.context_processors.debug",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+    "django.core.context_processors.static",
+    "django.contrib.messages.context_processors.messages",
+    "django.core.context_processors.request",
+)

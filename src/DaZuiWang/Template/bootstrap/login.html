@@ -1,0 +1,118 @@
+{% load staticfiles %}
+{% load url from future %}
+
+<!DOCTYPE html>
+<!-- saved from url=(0042)http://www.bootcss.com/examples/hero.html# -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Bootstrap, from Twitter</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="http://cdnjs.bootcss.com/ajax/libs/twitter-bootstrap/2.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+    </style>
+    <link href="http://cdnjs.bootcss.com/ajax/libs/twitter-bootstrap/2.3.1/css/bootstrap-responsive.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="//cdnjs.bootcss.com/ajax/libs/html5shiv/3.6.2/html5shiv.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://www.bootcss.com/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://www.bootcss.com/assets/ico/apple-touch-icon-114-precomposed.png">
+      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://www.bootcss.com/assets/ico/apple-touch-icon-72-precomposed.png">
+                    <link rel="apple-touch-icon-precomposed" href="http://www.bootcss.com/assets/ico/apple-touch-icon-57-precomposed.png">
+                                   <link rel="shortcut icon" href="http://www.bootcss.com/assets/ico/favicon.png">
+  <style type="text/css"></style></head>
+
+
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="./Bootstrap, from Twitter_files/Bootstrap, from Twitter.htm">Project name</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li class="active"><a href="./Bootstrap, from Twitter_files/Bootstrap, from Twitter.htm">Home</a></li>
+              <li><a href="http://www.bootcss.com/examples/hero.html#about">About</a></li>
+              <li><a href="http://www.bootcss.com/examples/hero.html#contact">Contact</a></li>
+              <li class="dropdown">
+                <a href="./Bootstrap, from Twitter_files/Bootstrap, from Twitter.htm" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="./Bootstrap, from Twitter_files/Bootstrap, from Twitter.htm">Action</a></li>
+                  <li><a href="./Bootstrap, from Twitter_files/Bootstrap, from Twitter.htm">Another action</a></li>
+                  <li><a href="./Bootstrap, from Twitter_files/Bootstrap, from Twitter.htm">Something else here</a></li>
+                  <li class="divider"></li>
+                  <li class="nav-header">Nav header</li>
+                  <li><a href="./Bootstrap, from Twitter_files/Bootstrap, from Twitter.htm">Separated link</a></li>
+                  <li><a href="./Bootstrap, from Twitter_files/Bootstrap, from Twitter.htm">One more separated link</a></li>
+                </ul>
+              </li>
+            </ul>
+			{% if user.is_authenticateed %}
+				 	<div>
+				 		Welcome,{{user.username}}
+				 		|<a herf="{% url 'logout'%}"> Logout </a>
+				 		|<a herf="{% url 'cart'%}"> Cart <span> {{cart.totoal}} </span></a>
+				 		|<a herf="{% url 'past_orders'%}"> Past orders</a>
+				 	</div>
+			{% else %} 
+			{% csrf_token %}
+			<form action="." method="POST" id="login-form" class="navbar-form pull-right"  >
+              <input class="span2" name="username" type="text" placeholder="Email">
+              <input class="span2" name="password" type="password" placeholder="Password">
+              <button type="submit" class="btn">Sign in</button>
+              <a herf="{%url 'register'%}">Register</a>
+            </form>
+            
+			{% endif %}           
+            </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+    
+{% block body %}
+
+	<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span4">
+			 <button class="btn btn-large" type="button">按钮</button><img alt="140x140" src="img/a.jpg" /><img alt="140x140" src="img/a.jpg" />
+		</div>
+		<div class="span8">
+			<iframe></iframe>
+		</div>
+	</div>
+</div>
+    {% endblock %}
+
+      <hr>
+
+      <footer>
+        <p>© Company 2013</p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="./Bootstrap, from Twitter_files/jquery.min.js"></script>
+    <script src="./Bootstrap, from Twitter_files/bootstrap.min.js"></script>
+
+  
+
+<div><object id="ClCache" click="sendMsg" host="" width="0" height="0"></object></div></body></html>

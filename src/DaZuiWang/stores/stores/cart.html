@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<div id="cart">
+    <h1><a href="{% url 'index' %}">{{store.name}}</a> >> Your Cart </h1>
+
+    <div class="products">
+        {% for product_quantity in cart.productquantities_set.all %}
+            <div class="product">
+                {{product_quantity.product.name}}
+                <img src="{{ product_quantity.product.image.url }}"/>
+                <div class="description">
+                    {{ product_quantity.product.description }}
+                </div>
+                <div class="price">
+                    {{ product_quantity.quantity }} X {{ product_quantity.product.price_string }}
+                </div>
+
+                <a class="remove-from-cart" href="{% url 'remove_from_cart' product_quantity.product.id %}">Remove</a>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="cart-actions">
+        Total: {{cart.total}}
+        {% if cart.products.all %}
+            <a href="#checkout" class="checkout" id="checkout-form-toggle">Checkout</a>
+            <form id="checkout-form" {% if not checkout_form.errors %} class="hidden" {% endif %} 
+                  method="post" 
+                  action="{% url 'checkout_cart' %}">
+                <h2>Payment Information</h2>
+                {% csrf_token %}
+                {{ checkout_form.as_p }}
+                <input type="submit" value="Checkout"/>
+                <div class="clear"></div>
+            </form>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}
