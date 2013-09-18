@@ -9,10 +9,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js "></script>
+	
+	 <link href="http://cdnjs.bootcss.com/ajax/libs/twitter-bootstrap/2.3.1/css/bootstrap.min.css" rel="stylesheet">
 	
     <!-- Le styles -->
-    <link href="http://cdnjs.bootcss.com/ajax/libs/twitter-bootstrap/2.3.1/css/bootstrap.min.css" rel="stylesheet">
-    
+    <script  src="{% static 'bootstrap.min.js' %}"></script>    
     <style type="text/css">
       body {
 		margin: 0;
@@ -26,7 +28,15 @@
       .top{
       	position:absolute;
       }
-      
+      .inner{
+		background-image:url({% static 'big mouth_home AD-2.png' %});
+		
+		background-repeat:no-repeat;
+		background-size:500px 245px;
+		width:520px;
+		height:250px;
+		position:relative;
+    }
       #logo{
       	position:absolute;
       	left:100px;
@@ -90,54 +100,149 @@
       	left:50px;
       	top:50px;
       	height:57px;
-      	z-index:-1;
+      	z-index:0;
+      	
       }
-      #bigmounth_search{
+      #search{
       
       	position:absolute;
       	left:50px;
       	top:120px;
       	
-      	width:130px;
-    	z-index:-1;
+      	height:65px;
+    	z-index:0;
       	}
+      #intro{
+      	position:absolute;
+      	left:300px;
+      	top:-10px;
+      	width:140px;
+    	z-index:1;
       	
+      }
+      #bill{
+      	position:absolute;
+      	left:500px;
+      	top:-20px;
+      	width:140px;
+    	z-index:1;
+      	
+      }		
       #frame_left{
       
       	position:absolute;
       	top:3px;
-      	left:120px;
+      	left:110px;
       	height:1430px;
       	z-index:-2;
       }
       #frame_top{
       
       	position:absolute;
-     	left:121px;
+     	left:111px;
+     	
      	width:1100px;
      	z-index:-3;
       }
       #mdiv{
-      
+      	
       	position:absolute;
+      	backgroud-color:White;
      	left:230px;
-     	top:70px;
+     	top:90px;
      	z-index:-3;
-      	background-color:#ffffff;
       	width:100%;
       	height:100%;
-      	z-index:0;
+      	z-index:3;
       }
       #frame{
       	position:abolute;
       	left:0px;
       	top:0px;
-    	width:100%;
+    	width:975px;
       	height:100%;
       	frameborder:no;
-    	
+    	z-index:3;
+      }
+      
+      #modalframe{
+      	width:100%;
+      	height:100%;
+      	
       }
     </style>
+    <script type="text/javascript">
+  
+    $(function(){
+		$("#home").bind("click",function(event){
+        
+        	$("#home").attr("src","{% static 'big mouth_home2.png'%}");
+           	
+	    	$("#search").attr("src","{% static 'big mouth_food search1.png'%}");
+
+	    	jumpModal("add","daa");
+        })
+        
+        $("#search").bind("click",function(event){
+        	
+    		$("#search").attr("src","{% static 'big mouth_food search2.png'%}");
+			        
+        	$("#home").attr("src","{% static 'big mouth_home1.png'%}");
+           	})
+        
+        $("#aboutus").bind("click",function(){
+        	
+        	$("#myModalBody").html("");
+   			
+        	$("#myModal").modal();
+        		
+        })
+        $("#aboutus").bind("click",function(){
+        	
+        	alert("test");	
+        })
+   	
+        
+   		$("#member").bind("click",function(){
+   			alert("ok");
+   			
+   			$.post("{% url 'registerHtml'%}",function(r){
+   						
+   				$("#myModalBody").html(r);
+   				$(".modal-header").empty();
+
+   				$(".modal-footer").empty();
+   					
+   			});
+   			$("#myModal").modal();
+   			
+   		})    	 
+        
+    });    
+    
+  
+    function jumpModal(name,url){
+   
+    	
+    	$.post("{% url 'get_product'%}",{name:name},function(r){
+    		alert(r);
+    		
+    		$("#myModalLabel").html(name);
+    		$("#myModalBody").html(r);
+        	
+    	})
+    	$("#myModal").modal();
+    	$("#btn_add_to_cart").unbind("click");
+        $("#btn_add_to_cart").bind("click",function(e){
+        	$.get("{% url 'add_to_cart'}",{'product_id':name},function(r){
+        		alert("ok");
+        			
+        	})
+        });
+    	
+    }
+    
+    </script>
     <link href="http://cdnjs.bootcss.com/ajax/libs/twitter-bootstrap/2.3.1/css/bootstrap-responsive.min.css" rel="stylesheet">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -156,12 +261,12 @@
 
   <body>
     
-{% block body %}
+
 
 	<div id="top_layout"  style="position:relative">
 		<img class="top" id="bar" alt="bar"  src="{% static 'big mouth_Bar.png'%}" width="100%" />	
 		<img class="top" id="logo" alt="logo"  src="{% static 'big mouth_LOGO.png'%}" width="150px" />	
-		<img class="top" id="aboutus" alt="aboutus"  src="{% static 'big mouth_member1.png'%}" width="150px" />	
+		<img class="top" id="aboutus" alt="aboutus"  src="{% static 'big mouth_about us1.png'%}" width="150px" />	
 		<img class="top" id="member" alt="member"  src="{% static 'big mouth_member1.png'%}" width="150px" />	
 		<img class="top" id="cart" alt="cart"  src="{% static 'big mouth_shopping cart1.png'%}" width="150px" />	
 		
@@ -169,22 +274,114 @@
 	<div  id="main" >
 		
 		<img id="home" class="leftimg" alt="home"  src="{% static 'big mouth_home2.png'%}" />
-		<img id="bigmounth_search" class="leftimg" alt="search"  src="{% static 'big mouth_food search1.png'%}" />
+		<img id="search" class="leftimg" alt="search"  src="{% static 'big mouth_food search1.png'%}" />
 		<img id="frame_left" class="leftimg" alt="search"  src="{% static 'big mouth_book2.png'%}" />
 		<img id="frame_top" class="leftimg" alt="search"  src="{% static 'big mouth_book1.png'%}" />
+		<img id="intro" class="leftimg" alt="search" src="{% static 'big mouth_restaurant introduction2.png'%}">
+		<img id="bill" class="leftimg" alt="search" src="{% static 'big mouth_meun2.png'%}">
+		
 		<div id="mdiv" >
-			<iframe id="frame" frameborder="no"></iframe>
-		</div>	
-
+{% block body %}
+		<iframe frameborder="no" id="frame"  src="{% url 'index'%}"></iframe>
+			
 {% endblock %}
+		
+		</div>	
+	  	</div>
+		
 
 
     </div> <!-- /container -->
 
+
+<div id="myModal" class="modal hide fade" data-backdrop="true" data-keyboard="true" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  <h3 id="myModalLabel" >Modal header</h3>
+</div>
+
+   <div class="modal-body" id="myModalBody">
+   	<iframe id="modalframe"  ></iframe>
+   </div>
+
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+     <button id="btn_add_to_cart" class="btn btn-primary">加入购物车</button>
+   </div>
+  </div>
+
+
+<div id="myModal1" class="modal hide fade" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  <h3 id="myModalLabel1" >Modal header</h3>
+</div>
+
+   <div class="modal-body" id="myModalBody1">
+		<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span6">
+			
+			{% csrf_token %}
+			<form class="form-inline" id="login" >
+			
+				<fieldset>
+					<legend>会员登入</legend>
+					<p>
+						会员账号：<input name="username" type="text" />
+					</p>
+					<p>
+						会员密码：<input name="password" type="password"/>
+					</p> <span class="help-block"><label class="checkbox"></label> <button class="btn" type="submit">提交</button></span>
+				</fieldset>
+			</form>
+		</div>
+		<div class="span6">
+			<form class="form-inline" id="register" action="{% url 'register' %}" method="POST"  >
+				<fieldset>
+					<legend>加入会员</legend>
+					<p>
+						会员账号：<input type="text" name="username" />
+					</p>
+					<p>
+						会员密码：<input type="text" name="username" />
+					</p>
+					<p>
+						确认密码：<input type="text" name="username" />
+					</p>
+					
+					<p>
+						电子邮箱：<input type="text" name="username" />
+					</p>
+					<p>
+						 姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：<input name="username" type="text" />
+					</p>
+					<p>
+						生&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;日：<input name="username" type="text" />
+					</p>
+					<p>
+						联系电话：<input type="text" name="username" />
+					</p>
+					<p>
+						联络地址 ：<input type="text" name="username" />
+					</p>
+					
+				</fieldset>
+				<button type="submit" class="btn">Sign in</button>
+              
+			</form>
+		</div>
+	</div>
+</div>
+    
+   </div>
+
+  </div>
+
+
+
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="./Bootstrap, from Twitter_files/jquery.min.js"></script>
-    <script src="./Bootstrap, from Twitter_files/bootstrap.min.js"></script>
-
+  
 <div><object id="ClCache" click="sendMsg" host="" width="0" height="0"></object></div></body></html>

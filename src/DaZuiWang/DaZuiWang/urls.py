@@ -18,7 +18,7 @@ urlpatterns = patterns('',
     url(r'^accounts/logout/$',logout_view,name='logout'),
     url(r'^accounts/register/$',register_view,name='register'),
     url(r'^stores/', include('stores.urls')),
-    
+   
     url(r'^test/',test_view.main)
     )
 

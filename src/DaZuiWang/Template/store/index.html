@@ -3,9 +3,8 @@
 {% block body %}
 
 <div id="store">
-    <h1> {{store.name}} </h1>
-
-    {% for product in store.product_set.all %}
+	
+    {% for product in products %}
         <div class="product">
             {{product.name}}
             <img src="{{ product.image.url }}"/>
@@ -15,13 +14,7 @@
             <div class="price">
                 {{ product.price_string }}
             </div>
-            <div>
-                In stock: <span class="quantity-in-stock">{{ product.quantity }}</span>
-            </div>
-            {% if product.quantity > 0 %}
-                <a class="add-to-cart" href="{% url 'add_to_cart' product.id %}">Add to Cart</a>
-            {% endif %}
-
+           
         </div>
     {% endfor %}
 </div>

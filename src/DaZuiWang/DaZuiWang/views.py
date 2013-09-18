@@ -89,6 +89,7 @@ def login_view(request):
         #return render(request,'bootstrap/login.html',{'form':form}) 
         return render_to_response('bootstrap/login.html')
     return render(request,'bootstrap/login.html',{'form':forms.LoginForm()})
+
 def logout_view(request):
     auth.logout(request)
     return redirect('login')

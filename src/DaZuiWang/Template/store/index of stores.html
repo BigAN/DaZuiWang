@@ -1,0 +1,153 @@
+{% load staticfiles %}
+{% load url from future %}
+
+<!DOCTYPE html>
+<!-- saved from url=(0042)http://www.bootcss.com/examples/hero.html# -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Bootstrap, from Twitter</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+	
+    <!-- Le styles -->
+    <link href="http://cdnjs.bootcss.com/ajax/libs/twitter-bootstrap/2.3.1/css/bootstrap.min.css" rel="stylesheet">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js "></script>
+	    <link href="http://cdnjs.bootcss.com/ajax/libs/twitter-bootstrap/2.3.1/css/bootstrap-responsive.min.css" rel="stylesheet">
+	    <script  src="{% static 'bootstrap.min.js' %}"></script>   
+    <style type="text/css">
+      body {
+		margin: 0;
+		background-color:#ffffff;
+		background-size: 1440px;
+		background-repeat:no-repeat;
+		display: compact;
+		padding-top: 10px;
+        padding-bottom: 40px;
+      }
+    .inner{
+		background-image:url({% static 'big mouth_home AD-2.png' %});
+		
+		background-repeat:no-repeat;
+		height:170px;
+		position:relative;
+    }
+    img.store{
+		width:187px;
+		height:143px;
+		position:absolute;
+		left:15px;
+		top:15px;
+	}
+	img.product{
+		width:187px;
+		height:143px;
+		position:absolute;
+		left:15px;
+		top:15px;
+	
+	}
+	.description{
+		text-align:center;
+	}
+	#temp{
+		background-color:#ffffff;
+		width:220px;
+		 
+	}
+    </style>
+    <script type="text/javascript">
+	$(function(){
+		$("#but").bind("click",function(e){
+			alert("dsafff");
+			
+			
+			$("#myModal").modal();
+		    		
+		})
+	     
+		$( '.store[productname]').bind("click" , function(e){
+            alert($( this ).attr('productname'));
+            
+            $.ajax({
+                  url: "{% url 'products' %}" ,
+                  data:{name:$( this ).attr("productname" )},
+                  type: 'post' ,
+                  success: function (data){
+                        $("#store").html(data);
+                  },
+                  error: function (e){
+                        alert( "error" );   
+                  }
+            })
+	      })
+	    $('#temp').bind("click",function(e){
+	    	alert("test");
+	    })  
+	    $('.product[productname]').bind("click" , function(e){
+	    	alert("product");
+            alert($( this ).attr('productname'));
+			$("#myModal").modal("toggle");
+	      })
+		})	 
+    </script>
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="//cdnjs.bootcss.com/ajax/libs/html5shiv/3.6.2/html5shiv.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://www.bootcss.com/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://www.bootcss.com/assets/ico/apple-touch-icon-114-precomposed.png">
+      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://www.bootcss.com/assets/ico/apple-touch-icon-72-precomposed.png">
+                    <link rel="apple-touch-icon-precomposed" href="http://www.bootcss.com/assets/ico/apple-touch-icon-57-precomposed.png">
+                                   <link rel="shortcut icon" href="http://www.bootcss.com/assets/ico/favicon.png">
+  <style type="text/css"></style></head>
+
+
+  <body>
+ 
+<div id="store">
+	<div class="container-fluid">
+	
+	<div class="row-fluid">
+	{% for store in stores %}
+ 
+		<div class="span4" >
+				<div class='inner'>
+				<img class="store" productname={{store.name}} alt="140x140" src="{{ store.image.url }}" />
+          		</div>
+				<div id="temp" class="description" text-align="left" ><a class="store" productname={{store.name}}> {{ store.name }}</a>
+				</div>			
+		</div>
+    {% endfor %}
+    	
+</div>
+  </div> <!-- /container -->
+</div>
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+<div id="myModal1" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  <h3 id="myModalLabel">Modal header</h3>
+</div>
+
+   <div class="modal-body">
+     <p>One fine body…</p>
+   </div>
+
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+     <button class="btn btn-primary">Save changes</button>
+   </div>
+  </div>
+  
+<div>
+<object id="ClCache" click="sendMsg" host="" width="0" height="0"></object></div></body></html>
+
+

@@ -14,7 +14,14 @@ from stores import views
 
 
 urlpatterns = patterns('',
-    url(r'^$', views.index, name='index'),
+    url(r'^$', views.index_stores_all, name='index'),
+    url(r'^intro/$',views.intro,name='intro'),
+    url(r'^search/$',views.search,name='search'),
+    url(r'all_products/$',views.all_products,name='all_products'),
+    url(r'^/registrhtml/$',views.registerHtml,name='registerHtml'),
+    url(r'(?P<store_id>\d+)/$',views.index_all,name='store_index'),
+    url(r'products/',views.index_store_products,name='products'),
+    url(r'get_product/',views.get_product,name='get_product'),
     url(r'^add_to_cart/(?P<product_id>\d+)/$', views.cart, name='add_to_cart'),
     url(r'^remove_from_cart/(?P<product_id>\d+)/$', views.remove_from_cart, name='remove_from_cart'),
     url(r'^cart/$', views.cart, name='cart'),

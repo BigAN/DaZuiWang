@@ -1,3 +1,5 @@
+#!coding: utf-8
+
 from django.db import models
 # Create your models here.
 from datetime import date
@@ -10,8 +12,10 @@ locale.setlocale(locale.LC_ALL, '')
 
 
 class Store(models.Model):
-    name = models.CharField(max_length=255)
-
+    name = models.CharField(max_length=255,verbose_name="名称")
+    image = models.ImageField(upload_to='store_images')
+    description=models.TextField()
+    
     def __unicode__(self):
         return self.name
 
@@ -24,6 +28,8 @@ class Product(models.Model):
     store = models.ForeignKey(Store)
 
     def price_string(self):
+         print self.price;
+         print locale.currency(self.price, grouping=True)
          return locale.currency(self.price, grouping=True)
 
     def __unicode__(self):

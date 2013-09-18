@@ -1,0 +1,56 @@
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span6">
+			
+			{% csrf_token %}
+			<form class="form-inline" id="login" >
+			
+				<fieldset>
+					<legend>会员登入</legend>
+					<p>
+						会员账号：<input name="username" type="text" />
+					</p>
+					<p>
+						会员密码：<input name="password" type="password"/>
+					</p> <span class="help-block"><label class="checkbox"></label> <button class="btn" type="submit">提交</button></span>
+				</fieldset>
+			</form>
+		</div>
+		<div class="span6">
+			<form class="form-inline" id="register" action="{% url 'register' %}" method="POST"  >
+				<fieldset>
+					<legend>加入会员</legend>
+					<p>
+						会员账号：<input type="text" name="username" />
+					</p>
+					<p>
+						会员密码：<input type="text" name="username" />
+					</p>
+					<p>
+						确认密码：<input type="text" name="username" />
+					</p>
+					
+					<p>
+						电子邮箱：<input type="text" name="username" />
+					</p>
+					<p>
+						 姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：<input name="username" type="text" />
+					</p>
+					<p>
+						生&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;日：<input name="username" type="text" />
+					</p>
+					<p>
+						联系电话：<input type="text" name="username" />
+					</p>
+					<p>
+						联络地址 ：<input type="text" name="username" />
+					</p>
+					
+				</fieldset>
+				<button type="submit" class="btn">Sign in</button>
+              
+			</form>
+		</div>
+	</div>
+</div>
+    

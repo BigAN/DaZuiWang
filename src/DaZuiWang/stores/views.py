@@ -11,32 +11,68 @@ from django.core.urlresolvers import reverse
 from django.forms.util import ErrorList
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
+from django.shortcuts import render_to_response
+
 
 from stores import forms, models
+from stores.models import Product,Store
+def registerHtml(request):
+    return render_to_response('member/login.html')
+
+def all_products(request):
+    products=Product.objects.all();
+    return render(request,'store/all_products.html',{'products':products})
 
 def getStoreNameFromUrl(url):
         start=url.find( '/stores/')
         storeNmae=url[start+8:-1]
         return storeNmae
+def index_all(request):
+    print "hello"
+    products=Product.objects.all()
+    return render(request,'store/index.html',{'products':products})
+
+def index_stores_all(request):
+
+    stores=Store.objects.all()
+    return render(request,'store/index of stores.html',{'stores':stores})
+def index_store_products(request):
+    
+    storename=request.POST['name']
+    store=Store.objects.get(name=storename)
+    return render(request,'store/products.html',{'store':store})    
+def get_product(request):
+    productname=request.POST['name']
+    product=get_object_or_404(models.Product,name=productname)
+    
+    return render(request,'store/product.html',{'product':product})
+    
 
 def index(request):
     print request.get_full_path()
     print request.path
     store=getStoreNameFromUrl(request.path)
-    
+    '''
     print "hello"
     print request.subdomain
     print request.user
+    '''
     store=get_object_or_404(models.Store,name=store)
     cart=models.Order.get_cart(store=store,user=request.user)
     return render(request,'store/index.html',{'store':store,'cart':cart})
 
+def search(request):
+    return render_to_response('store/search.html')
+
+
+def intro(request):
+    return render_to_response('store/intro.html')
 def cart(request, product_id=None, checkout_form=None):
     print "hello:"
     store = get_object_or_404(models.Store, name=request.subdomain)
     cart = models.Order.get_cart(store=store, user=request.user)
     if request.method == 'POST' and product_id:
-        product = get_object_or_404(models.Product, id=product_id)
+        product = get_object_or_404(models.Product, name=product_id)
         cart.add_product(product)
         print cart.total()
         return HttpResponse(json.dumps({'new_total': str(cart.total())}), content_type="application/json")
@@ -92,6 +128,7 @@ def delete_order(request, order_id):
     order.delete()
     messages.success(request, 'Your order has been deleted')
     return redirect('index')
+
 
 @login_required
 def past_orders(request):

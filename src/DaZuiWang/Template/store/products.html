@@ -1,0 +1,36 @@
+	<link href="http://cdnjs.bootcss.com/ajax/libs/twitter-bootstrap/2.3.1/css/bootstrap.min.css" rel="stylesheet">
+	<script  src="http://cdnjs.bootcss.com/ajax/libs/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>   
+	
+	<script type="text/javascript">
+	$(function(){
+		
+	    $('.product[productname]').bind("click" , function(e){
+	    	
+	    	window.parent.jumpModal($( this ).attr('productname'),"temp");
+	    	$('#aboutus',window.parent.document).click();
+	      })  
+	})	 
+    </script>
+    <h1> {{store.name}} </h1>
+	<div class="container-fluid">
+	<div class="row-fluid">
+
+    {% for product in store.product_set.all %}
+        <div class="span4">
+            <div class='inner'>
+			<img class="product" productname={{product.name}} width="100px" height="100px" src="{{ product.image.url }}"/>
+            </div>
+			<div id="temp" class="description" text-align="left" >
+				<a class="product" productname={{product.name}}> {{product.name }}</a>
+			</div>			
+            <div class="price">
+                	价格：{{ product.price }}
+            </div>
+            <div>
+                	库存: <span class="quantity-in-stock">{{ product.quantity }}</span>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+</div>
+

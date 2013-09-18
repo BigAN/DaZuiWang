@@ -20,6 +20,8 @@ DATABASES = {
     }
 }
 
+DEFAULT_CHARSET = 'utf-8'
+
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.4/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = []
@@ -28,11 +30,11 @@ ALLOWED_HOSTS = []
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
 # In a Windows environment this must be set to your system time zone.
-TIME_ZONE = 'America/Chicago'
+TIME_ZONE = 'Asia/Chongqing'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-cn'
 
 SITE_ID = 1
 
@@ -74,7 +76,9 @@ STATICFILES_DIRS = (
                     os.path.join(ROOT,'static'),
                     os.path.join(ROOT,'images'),
                     os.path.join(ROOT,'js'),
+                    os.path.join(ROOT,'js/locales'),
                     os.path.join(ROOT,'css'),
+                    os.path.join(ROOT,'less'),
             
 # strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
@@ -134,6 +138,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'stores',
     'bootstrap',
+    'south',
     
 )
     # Uncomment the next line to enable the admin:
