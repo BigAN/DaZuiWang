@@ -1,0 +1,40 @@
+
+{% if products %}
+<h3>食物</h3>
+{% for product in products %}
+<div class="search_product">
+    <div class="product_name">{{product.name}}
+    </div>
+    <div class="search_inner">
+        <img  class="search_product" src="{{ product.image.url }}"/>
+    </div>
+  
+</div>
+
+
+{% endfor %}
+{% endif%}
+{% if stores%}
+<h3>店铺</h3>
+<div id="store_re">
+    <div class="container-fluid">
+    
+    
+    {% for store in stores %}
+        
+        <div class="search_store"  >
+                <div class='search_inner'>
+                <img class="search_store" productname={{store.name}} alt="140x140" src="{{ store.image.url }}" />
+                </div>
+                <div id="temp" class="description" text-align="left" >
+                    <a class="search_store" productname={{store.name}}> {{ store.name }}</a>
+                </div>          
+        </div>
+    {% endfor %}
+    
+  </div> <!-- /container -->
+</div>
+{% endif %}
+{% if not products and not stores%}
+<h3>没有结果, 请换个条件搜索吧！</h3>
+{% endif%}

@@ -1,0 +1,304 @@
+{% load staticfiles %}
+{% load url from future %}
+
+<!DOCTYPE html>
+<!-- saved from url=(0042)http://www.bootcss.com/examples/hero.html# -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Bootstrap, from Twitter</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js "></script>
+  
+  <link href="http://cdnjs.bootcss.com/ajax/libs/twitter-bootstrap/2.3.1/css/bootstrap.css" rel="stylesheet">
+  
+    <!-- Le styles -->
+    <script src="{% static 'bootstrap.js' %}" type="text/javascript"></script> 
+    
+  <link href="{% static 'datetimepicker.css' %}" rel="stylesheet">
+
+  <script src="{% static 'bootstrap-datetimepicker.js' %}" type="text/javascript"></script>        
+  <script src="{% static 'bootstrap-datetimepicker.zh-CN.js' %}" type="text/javascript"></script> 
+  <script type="text/javascript" src="{% static 'bootstrap-paginator.min.js' %}"></script>
+  <link href="{% static 'main1366.css'%}" rel="stylesheet">
+    <style type="text/css">
+    body {
+    margin: 0;
+    background-image: url({% static 'background1.png'%});
+    background-size: 100% 1290px;
+    background-repeat:no-repeat;
+    display: compact;
+    padding-top: 10px;
+        padding-bottom: 0px;
+        height:1280px;
+        overflow:hidden;
+      }
+      html { 
+    overflow:hidden; 
+    } 
+    </style>
+    <script type="text/javascript">
+  
+    $(function(){
+    
+      $("#intro").hide();
+      $("#bill").hide();
+      
+      
+      $("#home").on("click",function(event){
+          
+            $("#frame").attr("src","{% url 'index'%}");
+      $("#search").attr("src","{% static 'big mouth_food search1.png'%}");
+          
+          $("#home").attr("src","{% static 'big mouth_home2.png'%}");
+          $("#intro").hide();
+      $("#bill").hide();
+        //jumpModal("add","daa");
+        })
+        $("#search").bind("click",function(event){
+            
+        $("#search").attr("src","{% static 'big mouth_food search2.png'%}");
+              
+          $("#home").attr("src","{% static 'big mouth_home1.png'%}");
+          
+          $("#frame").attr("src","{% url 'searchMain'%}");
+         $("#intro").hide();
+      $("#bill").hide();
+            })
+        
+        $("#aboutus").bind("click",function(){
+          
+          $("#myModalBody").html("");
+        
+          $("#myModal").modal();
+            
+        })
+        $("#aboutus").bind("click",function(){
+          
+          alert($(window).width());
+          //alert("test");  
+        })
+    
+        
+      $("#member").bind("click",function(){
+        //alert("ok");
+        
+        $.post("{% url 'registerHtml'%}",function(r){
+              
+          $("#myModalBody1").html(r);
+          
+            
+        });
+        $("#myModal1").modal();
+        
+      }) 
+      
+      $("#cart").bind("click",function(){
+        //alert("ok");
+        
+        $.post("{% url 'cart'%}",function(r){
+          //alert(r);
+          $("#modalheader").empty();
+          $("#cartModalBody").html(r);
+          
+        });
+        $("#cartModal").modal();
+        
+      }) 
+        
+    });    
+    //绑定菜单键
+    function bindbill(storename){
+       $('#bill').bind("click",function(){
+          $.ajax({
+             url: "{% url 'products' %}" ,
+             data:{name:storename},
+             type: 'post' ,
+             success: function (data){
+               var iframe = document.getElementById('frame'),
+               iframedoc = iframe.contentDocument || iframe.contentWindow.document;
+
+              iframedoc.body.innerHTML = data;
+             },
+             error: function (e){
+                   alert( "error" );   
+             }
+          }) 
+       })
+       
+      
+    }
+    
+    function bindintro(storename){
+       $('#intro').bind("click",function(){
+          $.ajax({
+             url: "{% url 'intro' %}" ,
+             data:{name:storename},
+             type: 'post' ,
+             success: function (data){
+              //it can be achieved through injecting html into html  
+                var iframe = document.getElementById('frame'),
+               iframedoc = iframe.contentDocument || iframe.contentWindow.document;
+
+              iframedoc.body.innerHTML = data;
+              /*
+              alert("test iframe src");
+              var iframe=$('#frame');
+              iframedoc=$('#frame').contentDocument || $('#frame').contentWindow.document
+              $('#frame').body.innerHTML='Hello World';
+              */
+              // one way to  
+              //alert("test iframe src2");
+              //$('#frame').contentWindow.document.body.html(data);
+               
+              //$("#frame").attr("src",data);
+             },
+             error: function (e){
+                   alert( "error" );   
+             }
+          }) 
+       })
+      
+    }
+    function jumpModal(name,storename,storeid){
+      $("#intro").show(100);
+      $("#bill").show(100);
+    
+      //alert(storeid);
+      $.post("{% url 'get_product'%}",{name:name},function(r){
+        
+        $("#myModalLabel").html(name);
+        $("#myModalBody").html(r);
+        
+          
+      })
+      $("#myModal").modal();
+      $("#btn_add_to_cart").unbind("click");
+      $("#btn_add_to_cart").bind("click",function(e){
+        
+          $.post("{% url 'add_to_cart'%}",{product_id:name,store_name:storename,store_id:storeid},function(r){
+            //alert("done");
+            //alert(r);
+            $("#myModal").modal('hide');
+            
+            
+          })
+         })
+    }
+      
+      
+  
+    
+    </script>
+    <link href="http://cdnjs.bootcss.com/ajax/libs/twitter-bootstrap/2.3.1/css/bootstrap-responsive.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="//cdnjs.bootcss.com/ajax/libs/html5shiv/3.6.2/html5shiv.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://www.bootcss.com/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://www.bootcss.com/assets/ico/apple-touch-icon-114-precomposed.png">
+      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://www.bootcss.com/assets/ico/apple-touch-icon-72-precomposed.png">
+                    <link rel="apple-touch-icon-precomposed" href="http://www.bootcss.com/assets/ico/apple-touch-icon-57-precomposed.png">
+                                   <link rel="shortcut icon" href="http://www.bootcss.com/assets/ico/favicon.png">
+  <style type="text/css"></style></head>
+
+
+  <body>
+    
+
+
+  <div id="top_layout"  style="position:relative">
+    <img class="top" id="bar" alt="bar"  src="{% static 'big mouth_Bar.png'%}" width="100%" />  
+    <img class="top" id="logo" alt="logo"  src="{% static 'big mouth_LOGO.png'%}" width="150px" />  
+    <img  id="aboutus" alt="aboutus"  src="{% static 'big mouth_about us1.png'%}" width="150px" />  
+    <img id="member" alt="member"  src="{% static 'big mouth_member1.png'%}" width="150px" /> 
+    <img id="cart" alt="cart"  src="{% static 'big mouth_shopping cart1.png'%}" width="150px" />  
+    
+  </div>
+  <div  id="main" >
+    
+    <img id="home" class="leftimg" alt="home"  src="{% static 'big mouth_home2.png'%}" />
+    <img id="search" class="leftimg" alt="search"  src="{% static 'big mouth_food search1.png'%}" />
+    <img id="frame_left" class="leftimg" alt="search"  src="{% static 'big mouth_book2.png'%}" />
+    <img id="frame_top" class="leftimg" alt="search"  src="{% static 'big mouth_book1.png'%}" />
+    <img id="intro"  class="leftimg" alt="search" src="{% static 'big mouth_restaurant introduction2.png'%}">
+    <img id="bill" class="leftimg" alt="search" src="{% static 'big mouth_meun2.png'%}">
+    
+    <div id="mdiv" >
+
+    <iframe frameborder="no" id="frame"  src="{% url 'index'%}"></iframe>
+    
+
+    
+    </div>  
+      </div>
+    
+
+
+    </div> <!-- /container -->
+
+
+<div id="myModal" class="modal hide fade" data-backdrop="true" data-keyboard="true" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  <h3 id="myModalLabel" >Modal header</h3>
+  </div>
+
+  <div class="modal-body" id="myModalBody">
+   
+   </div>
+
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+     <button id="btn_add_to_cart" class="btn btn-primary">加入购物车</button>
+   </div>
+</div>
+
+
+<div id="myModal1" class="modal hide fade" data-backdrop="true" data-keyboard="true" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header" id="modalheader1">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  <h3 id="myModalLabel1" >Modal header</h3>
+</div>
+
+   <div class="modal-body" id="myModalBody1">
+    
+   </div>
+
+  <div class="modal-footer" id="modalfooter1">
+  
+   </div>
+  </div>
+
+
+<div id="cartModal" class="modal hide fade" data-backdrop="true" data-keyboard="true" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header" id="modalheader">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  <h3 id="cartModalLabel" >Modal header</h3>
+</div>
+
+   <div class="modal-body" id="cartModalBody">
+    
+   </div>
+
+  <div class="modal-footer" id="cartModalfooter">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+    
+   </div>
+  </div>
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+ 
+
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+  
+<div><object id="ClCache" click="sendMsg" host="" width="0" height="0"></object></div></body></html>

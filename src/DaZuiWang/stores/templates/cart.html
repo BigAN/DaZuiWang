@@ -1,0 +1,413 @@
+
+<link href="http://cdnjs.bootcss.com/ajax/libs/twitter-bootstrap/2.3.1/css/bootstrap.min.css" rel="stylesheet">
+<script  src="http://cdnjs.bootcss.com/ajax/libs/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>   
+
+<link href="http://cdnjs.bootcss.com/ajax/libs/twitter-bootstrap/2.3.1/css/bootstrap.css" rel="stylesheet">
+<style type="text/css">
+.ui-co-label {
+position: relative;
+padding-left: 25px;
+width: 82%;
+color: #444;
+line-height: 28px;
+margin: 0 0 0 0;
+text-align:right;
+float: left;
+}
+.coolist-item.current {
+	background: #f1f1f1;
+}
+.coolist-item {
+	padding: 10px 10px;
+}
+.divOver{
+	background:#eff8fe;
+} 
+.cooverlay-list {
+	list-style:none;
+	margin:0px;
+} 
+.coli-action{
+	float: left;
+}
+.ui-co-radio{
+	float: left;
+}
+.addr_sav{
+	display: none;
+}
+.addr_ccl{
+	display: none;
+}
+.addr_mod{
+	display: none;
+}
+.addr{
+	float: left;
+}
+.cart-actions{
+	float: left;
+}
+</style>
+<script type="text/javascript">
+
+$(function(){
+	// 圆角
+	$('#so_addr').hide();
+
+	$('.companel-edit').bind('click',function(event) {
+		/* Act on the event */
+		$('#so_addr').slideToggle(500);
+		$('#addr_div').slideToggle(500);
+
+	});
+	//发送请求 获取地址列表
+	// alert("te");
+	var id=1;
+	$.get("{% url 'address' %}", function(data) {
+		/*optional stuff to do after success */
+		//var rdata=JSON.parse(data);
+		// alert(data.address);
+		$.each(data, function(index, val) {
+			// $('#addr_list').append(data.address);
+			// var t="<li class='addr_item coolist-item clearfix current'><input id='3280347' class='ui-co-radio' type='radio' name='optionAddress' checked='checked'><label class='ui-co-label' for='3280347' data-id="+id.toString()+">";
+			if(index=="address"){
+				$('#addr_list').append("<li class='addr_item coolist-item clearfix current '><input id='3280347' class='ui-co-radio' type='radio' name='optionAddress' checked='checked'><label class='ui-co-label' for='3280347' data-id="+id.toString()+">"+"<span class='addr'>"+val+"</span>"+"</label>"+"<span class='addr_act coli-action'><a class='addr_mod modify'>修改</a><a class='addr_del del'>×</a><a class='addr_sav save'>保存</a><a class='addr_ccl cancel'>取消</a></span></li>");
+			}else{
+				$('#addr_list').append("<li class='addr_item coolist-item clearfix '><input id='3280347' class='ui-co-radio' type='radio' name='optionAddress'><label class='ui-co-label' for='3280347' data-id="+id.toString()+">"+"<span class='addr'>"+val+"</span>"+"</label>"+"<span class='addr_act coli-action'><a class='addr_mod modify'>修改</a><a class='addr_del del'>×</a><a class='addr_sav save'>保存</a><a class='addr_ccl cancel'>取消</a></span></li>");
+			}
+			
+			
+		});
+		$('#addr_info').html(data.address);
+
+		$('.addr_item').bind('click',  function(event) {
+			/* Act on the event */
+			$('.addr_item').removeClass('current');
+			$(this).addClass('current');
+		});
+		// $('.companel-edit').bind('click',function(event) {
+		// 	/* Act on the event */
+		// 	$('#so_addr').slideToggle(500);
+		// 	$('#addr_div').slideToggle(500);
+
+		// });
+		$(".addr_item").mouseenter(function(event) {
+			/* Act on the event */
+			$(this).find('.addr_mod').show(22);
+		})
+		$(".addr_item").mouseleave(function(event) {
+			/* Act on the event */
+			$(this).find('.addr_mod').hide(22);
+		});
+		$('#pay_offline').bind('click', function() {
+			/* Act on the event */
+			$(this).addClass('btn-danger');
+			$('#pay_online').removeClass('btn-danger');
+		});
+
+		$('#pay_online').bind('click', function(event) {
+
+			$(this).addClass('btn-danger');
+			$('#pay_offline').removeClass('btn-danger');
+		});
+		$('#send_time').datetimepicker({
+			format: 'yyyy-mm-dd hh:ii',
+			startView: 'hour',
+			minView:'hour',
+			language:'zh-CN'
+		});
+		$(".addr_item").mouseenter(function(event) {
+			/* Act on the event */
+			$(this).find('.addr_mod').show(22);
+		})
+		$(".addr_item").mouseleave(function(event) {
+			/* Act on the event */
+			$(this).find('.addr_mod').hide(22);
+		});
+
+		var today=new Date();
+		var m=today.getMonth()+1
+		var to=today.getFullYear()+'-'+m+'-'+ today.getDate()+' '+today.getHours()+':'+today.getMinutes();
+		// alert(to);
+		$('#send_time').datetimepicker('setStartDate', to);
+		var par = $('#checkout-form');
+		$(par).hide();
+		/*变色*/
+		
+	});
+	$('#addr_confirm').bind('click', function(event) {
+		/* Act on the event */
+		var addr=$('input[name=optionAddress]:checked').parent().find('label').find('.addr').text();
+		$('#addr_info').html(addr);
+		// $('.companel-edit').bind('click',function(event) {
+		// 	/* Act on the event */
+		// 	$('#so_addr').slideToggle(500);
+		// 	$('#addr_div').slideToggle(500);
+
+		// });
+		$('#so_addr').slideToggle(500);
+		$('#addr_div').slideToggle(500);
+
+
+	});
+	$('.comodule-panel').hover(function() {
+		/* Stuff to do when the mouse enters the element */
+		$(this).addClass('divOver');
+	}, function() {
+		/* Stuff to do when the mouse leaves the element */
+		$(this).removeClass('divOver');
+	});
+
+		//支付方式
+	// $(".addr_item").hover(function() {
+	// 	/* Stuff to do when the mouse enters the element */
+	
+	// 	$(this).find('.addr_mod').slideToggle(22);
+	// }, function() {
+	// 	/* Stuff to do when the mouse leaves the element */
+	// 	$(this).find('.addr_mod').hide(22);
+	// });
+	
+	$('#pay_offline').bind('click', function() {
+		/* Act on the event */
+		$(this).addClass('btn-danger');
+		$('#pay_online').removeClass('btn-danger');
+	});
+
+	$('#pay_online').bind('click', function(event) {
+		
+		$(this).addClass('btn-danger');
+		$('#pay_offline').removeClass('btn-danger');
+	});
+	$('#send_time').datetimepicker({
+		 format: 'yyyy-mm-dd hh:ii',
+		 startView: 'hour',
+		 minView:'hour',
+		 language:'zh-CN'
+	 });
+	// 发送时间
+	
+	
+	$('.remove-from-cart').on("click",function(e){
+		 //alert($( this ).attr("productid" ));
+		 $.ajax({
+		 	url: "{% url 'remove_from_cart' %}" ,
+		 	data:{product_id:$( this ).attr("productid" )},
+		 	type: 'post' ,
+		 	success: function (data){
+		 		$("#cartModal").html(data);
+		 	},
+		 	error: function (e){
+		 		alert( "error remove-from-cart" );   
+		 	}
+		 })
+		});
+	$('#checkout-form-toggle').click(function (e) {
+		 	//$('#foodcart').slideToggle(1000);
+		 	
+		 	$('#checkout-form').slideToggle(1000);
+		 	e.preventDefault();
+
+		 });
+	$('#btn_checkout').bind("click",function(er){
+			 //alert("nihamddf");
+			 //alert($("#id_phone_number").val());
+			 $.ajax({
+			 	data:{phone_number:$("#id_phone_number").val()},
+			 	type:'post',
+			 	url:"{% url 'checkout_cart' %}",
+
+			 	success: function (data){
+			 		$("#cartModalBody").html(data);
+			 	},
+			 	error: function(e){
+			 		alert( "付款出错" );   
+			 	}
+			 });
+
+			})
+	//$('#checkout-form').serialize()
+	// $('.cart_inner').corner();
+	$('#pay_offline').click();
+	$('#confirm_order').on('click',  function(event) {
+		event.preventDefault();
+		/* Act on the event */
+		var address=$('#addr_info').text();
+		var send_time=$('#send_time').val();
+
+		
+
+		if ($("#send_time").val()=='') {
+			alert("请填写发送时间");
+		}else{
+			if ($("#pay_offline").attr('class')=='btn btn-danger') {
+				// alert('send')
+				$.post("{% url 'checkout_cart'%}", {address: address,
+					send_time:send_time,
+					pay_way:'pay_offline'}, function(data) {
+						/*optional stuff to do after success */
+						// alert(data);
+						data=$.parseJSON(data);
+						// alert(data);
+						if(data.info=='success'){
+							 alert("您的订单已经成功提交，请查看");
+							$('#close').click();
+						};
+						if(data.info=='product_0'){
+							alert("您的购物车被您清空啦，再来点食物吧");
+							$('#close').click();
+						};
+						// alert(data);
+					});
+			};
+			if ($("#pay_online").attr('class')=='btn btn-danger') {
+				// $.post("{% url 'checkout_cart'%}", {address: 'value1',
+				// 	send_time:'',
+				// 	pay_way:''}, function(data) {
+						// optional stuff to do after success 
+				// 		if(data.info=='success'){
+				// 			alert("您的订单已经成功提交，请查看");
+				// 		}
+				// 	});
+				alert("暂不支持在线付款");
+			};
+		};
+		
+
+	});
+})
+</script>
+<div id="foodcart">
+	{% if info %}
+	<h3>{{info}}</h3>
+	{% else %}
+	
+
+   <div class="modal-body" id="cartModalBody">
+    
+  
+	<h2>您在<a href="{% url 'index' %}">{{store.name}}</a>的购物车 </h2>
+	<div class="container-fluid">
+		{% for product_quantity in cart.productquantities_set.all %}
+		<div class="cart_product">
+			<div class="product_name">{{product_quantity.product.name}}
+			</div>
+			<div class="cart_inner">
+				<img  class="cart_product" src="{{ product_quantity.product.image.url }}"/>
+			</div>
+
+			<div class="price">
+				{{ product_quantity.quantity }} X {{ product_quantity.product.price }}元
+			</div>
+
+			<a class="remove-from-cart" productid={{product_quantity.product.id}} >去除
+			</a>
+		</div>
+		{% endfor %}
+	</div>
+	<HR class="hr">
+		<div id="addr_panel" class="comodule-panel pointer clearfix">
+			<div id="addr_div">
+			<h4 class="companel-title"><i  class="icon-map-marker"></i> 送达地址：</h4>
+
+			<div id='send_companel-content' class="companel-content">
+				<span id="addr_info" class="companel-info"><p style='font-size: 16px;'>得得 18600218186 111</p>
+				</span>
+				<a class="companel-edit">[修改]</a>
+			</div>
+			</div>
+			<div id="so_addr" class="cooverlay so_overlay" style="display: block;">
+				<h3 class="cooverlay-header">送达地址
+					<a id="addr_add" class="cooverlay-header-tip">添加新的地址</a>
+				</h3>
+
+				<ul id="addr_list" class="cooverlay-list">
+
+					<li id="addr_new" class="addr_item coolist-item relative hide">
+						<input id="newAddrRadio" class="ui-co-radio" type="radio" name="optionAddress">
+						<label class="ui-co-label" for="newAddrRadio" data-id="new">
+							<input class="coaddr-input addr" type="text" placeholder="外卖送到的地址">
+							<input class="coaddr-input tel" type="text" placeholder="手机号码">
+							<input class="coaddr-input tel-bk" type="text" placeholder="备选电话（选填）">
+						</label>
+						<span class="addr_action coli-action"><a class="addr_del del">×</a></span>
+					</li>
+
+					<!-- <li class="addr_item coolist-item clearfix current">
+						<input id="3280347" class="ui-co-radio" type="radio" name="optionAddress" checked="checked">
+						
+						<label class="ui-co-label" for="3280347" data-id="3280347">
+							<span class="addr">北京航空航天大11室</span>
+							<span class="tel">18600218186</span>
+							<span class="tel-bk"></span>
+						</label>
+						<span class="addr_act coli-action">
+							<a class="addr_mod modify">修改</a>
+							<a class="addr_del del">×</a>
+							<a class="addr_sav save">保存</a>
+							<a class="addr_ccl cancel">取消</a>
+						</span>
+
+					</li> -->
+
+
+				</ul>
+
+				<p style='margin-top: 5px;'>
+					<button id="addr_confirm" class="btn btn-primary">保存</button>
+					<button class="btn">取消</button>
+				</p>
+
+
+			</div>
+		</div>
+	<HR class="hr">
+		<div id="time_panel" class="comodule-panel pointer clearfix">
+			<h4 class="companel-title"><i class="icon-time"></i>送餐时间：</h4>
+
+			 <input type="text" id="send_time" placeholder="选择送餐时间">
+		</div>
+	<HR class="hr">
+		<div id="pay_panel" class="comodule-panel pointer clearfix">
+			<h4 class="companel-title"><i class="icon-shopping-cart"></i>支付方式：</h4>
+
+			<div class="companel-content">
+				<span id="pay_info" class="companel-info">
+				<a class='btn' id='pay_offline'> 餐到付款
+				</a>
+				<a class='btn' id='pay_online'> 在线支付
+				</a>
+				</span>
+				
+			</div>
+		</div>
+	<HR class="hr">
+		 </div>
+
+  <div class="modal-footer" id="cartModalfooter">
+  	<div class="cart-actions">
+		Total: {{cart.total}} 元
+		{% if cart.products.all %} 
+		<a href="#checkout" hidden class="checkout" id="checkout-form-toggle">Checkout
+		</a>
+		<form id="checkout-form"  
+		method="post" 
+		action="{% url 'checkout_cart' %}">
+		<h2>Payment Information
+		</h2>
+		{% csrf_token %}
+		{{ checkout_form.as_p }}
+		<button id="btn_checkout" class="btn btn-primary">结账
+		</button>
+		<div class="clear"></div>
+		</form>
+		{% endif %}
+	</div>
+	<button id='confirm_order' class="btn btn-success"  aria-hidden="true">确认订单</button>
+    <button id='close' class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+    
+   </div>
+	
+	{% endif %}
+</div>

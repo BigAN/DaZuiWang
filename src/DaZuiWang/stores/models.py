@@ -1,5 +1,4 @@
-#!coding: utf-8
-
+#! -*- coding:utf-8 -*- 
 from django.db import models
 # Create your models here.
 from datetime import date
@@ -14,8 +13,13 @@ locale.setlocale(locale.LC_ALL, '')
 class Store(models.Model):
     name = models.CharField(max_length=255,verbose_name="名称")
     image = models.ImageField(upload_to='store_images')
+    ads_image=models.ImageField(upload_to='store_images',verbose_name='宣传照片（尺寸:880×230）')
     description=models.TextField()
-    
+    store_quantitiy=models.IntegerField()
+    telphone=models.CharField(max_length=255,verbose_name="电话")
+
+    lat=models.DecimalField(max_digits=10,decimal_places=6)
+    lon=models.DecimalField(max_digits=10,decimal_places=6)
     def __unicode__(self):
         return self.name
 
@@ -26,12 +30,13 @@ class Product(models.Model):
     image = models.ImageField(upload_to='product_images')
     quantity = models.IntegerField()
     store = models.ForeignKey(Store)
-
+    cuisine=models.CharField(max_length=50, choices=[(t,t) for t in ('chinese', 'europe', 'japan', 'franch','italy','tailand')],
+                                        null=True)
     def price_string(self):
          print self.price;
-         print locale.currency(self.price, grouping=True)
+         return self.price; 
          return locale.currency(self.price, grouping=True)
-
+    
     def __unicode__(self):
         return self.name
 
@@ -39,8 +44,12 @@ class ProductQuantities(models.Model):
     product = models.ForeignKey('Product')
     order = models.ForeignKey('Order')
     quantity = models.IntegerField()
-
+    def product_price(self):
+        print "nihs"
+        print "hehe "+str(self.product.price)
+        return self.product.price*self.quantity
 class Order(models.Model):
+
     user = models.ForeignKey(User)
     products = models.ManyToManyField(Product, through=ProductQuantities)
     store = models.ForeignKey(Store)
@@ -64,10 +73,40 @@ class Order(models.Model):
 
     ordered_on = models.DateTimeField(null=True)
     shipped_on = models.DateTimeField(null=True)
-
-
+    send_time=models.DateTimeField(null=True)
+    pay_way = models.CharField(max_length=50, 
+                                        choices=[(t,t) for t in ('pay_offline', 'pay_online')],
+                                        null=True)
+    notes=models.CharField(max_length=255, null=True)
+    status=models.CharField(max_length=50, 
+                                        choices=[(t,t) for t in ('ing','accepted', 'finished', 'unfinished')],
+                                        null=True)
+    def cancel_order(self):
+        try:
+            self.status="unfinished"
+            self.save()
+        except Exception, e:
+            print e
+    def agree_order(self):
+        try:
+            self.status="accepted"
+            self.save()
+        except Exception, e:
+            print e
+    def finish_order(self):
+        try:
+            self.status="finished"
+            self.save()
+        except Exception, e:
+            print e
+    def total_num(self):
+        t=0
+        for pq in self.productquantities_set.all():
+            t+=pq.quantity
+        return t
     def total(self):
         t=0
+#        print "total"
         for pq in self.productquantities_set.all():
             t+=pq.product.price*pq.quantity
         return t
@@ -102,3 +141,9 @@ class Order(models.Model):
    
     def __unicode__(self):
         return "%s %s - %s" % (self.id, self.user.username, self.ordered_on)
+
+def main():
+    print locale.currency(12, grouping=True)
+    print "1"
+if __name__ == '__main__':
+    main()

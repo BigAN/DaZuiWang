@@ -1,53 +1,139 @@
+<link href="http://cdnjs.bootcss.com/ajax/libs/twitter-bootstrap/2.3.1/css/bootstrap.min.css" rel="stylesheet">
+<script  src="http://cdnjs.bootcss.com/ajax/libs/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>   
+ <style type="text/css">
+    #error{
+    display:none;
+    }
+</style>
+<script type="text/javascript">
+  
+$(function(){
+	 
+	 $('#dp1').datetimepicker({
+		 format: 'yyyy-mm-dd',
+		 startView: 'decade',
+		 minView:'month',
+		 language:'zh-CN'
+	 });
+	 
+	 $("#login_btn").on("click",function(){
+		 $('#error').hide();
+		 $.ajax({
+             url: "{% url 'login' %}" ,
+             data:{username:$('#name').val(),
+            	 password:$('#password').val(),
+            	 },
+             type: 'POST' ,
+           
+             success: function (data){
+            	 var rdata=JSON.parse(data);
+            	 
+            	 if (rdata.info=="error"){
+            		 alert("333");
+            	     $('#error').show(1000);
+            	 }else{
+                	 location.href = "{% url 'main'%}";
+            	 }
+             },
+             error: function (data){
+                 $('#error').show(1000);
+             }
+       })
+       
+
+
+	 });
+	 $("#re_btn").on("click",function(){
+		 $.ajax({
+             url: "{% url 'register' %}" ,
+             data:{username:$('#Re_username').val(),
+            	 password:$('#Re_password').val(),
+            	 email:$('#Re_email').val(),
+            	 entire_name:$('#Re_name').val(),
+            	 birthday:$('#dp1').val(),
+            	 phone:$('#Re_phone').val(),
+            	 address:$('#Re_addresss').val()
+            	},
+             type: 'POST' ,
+             success: function (data){
+            	 var rdata=JSON.parse(data)
+            	 
+            	 if (rdata.info=="error"){
+            	     alert("用户名或者邮箱已存在请重新输入");
+            	 }else{
+                	 location.href = "{% url 'main'%}";
+            	 }
+             },
+             error: function (data){
+            	 alert("输入信息有误");
+             }
+       })
+
+
+	 });
+	
+})
+</script>
 <div class="container-fluid">
 	<div class="row-fluid">
 		<div class="span6">
-			
-			{% csrf_token %}
-			<form class="form-inline" id="login" >
-			
-				<fieldset>
+{% csrf_token %}
+			 {% if user.is_authenticated %}
+
+			 <h5><a href="{% url 'person' %}">{{user.username}}</a>已登入。</h5>
+			 <span>
+			 	<a href="{% url 'person' %}"> 个人信息中心</a>
+			 	<a href="{% url 'logout' %}"> 退出</a>
+			 </span> 
+			 {% else %}
+			 		<fieldset>
 					<legend>会员登入</legend>
 					<p>
-						会员账号：<input name="username" type="text" />
+						会员账号：<input id="name" name="username" type="text" placeholder="用户名"/>
 					</p>
 					<p>
-						会员密码：<input name="password" type="password"/>
-					</p> <span class="help-block"><label class="checkbox"></label> <button class="btn" type="submit">提交</button></span>
+					
+						会员密码：<input id="password" name="password" type="password" placeholder="密码"/>
+					</p> <span class="help-block"><label class="checkbox"></label> <button class="btn" id="login_btn" >提交</button></span>
+					<div id="error" >
+					<p>用户名或者密码错误，请重新输入</p>
+					</div>
 				</fieldset>
-			</form>
+		
+			 {% endif%}		
 		</div>
 		<div class="span6">
-			<form class="form-inline" id="register" action="{% url 'register' %}" method="POST"  >
 				<fieldset>
 					<legend>加入会员</legend>
 					<p>
-						会员账号：<input type="text" name="username" />
+						会员账号：<input type="text" id="Re_username" name="Re_username" />
 					</p>
 					<p>
-						会员密码：<input type="text" name="username" />
+						会员密码：<input type="password" id="Re_password"  name="Re_password" />
 					</p>
 					<p>
-						确认密码：<input type="text" name="username" />
+						确认密码：<input type="password" id="Re_confirm" name="Re_confirm" />
 					</p>
 					
 					<p>
-						电子邮箱：<input type="text" name="username" />
+						电子邮箱：<input type="text" id="Re_email" name="Re_email" />
 					</p>
 					<p>
-						 姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：<input name="username" type="text" />
+						 姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：<input id="Re_name" name="Re_name" type="text" />
 					</p>
 					<p>
-						生&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;日：<input name="username" type="text" />
+						生&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;日：
+						 <input type="text" id="dp1" data-date-minView="day">  
 					</p>
 					<p>
-						联系电话：<input type="text" name="username" />
+						联系电话：<input id="Re_phone" type="text" name="Re_phone" />
 					</p>
 					<p>
-						联络地址 ：<input type="text" name="username" />
+						联络地址 ：<input id="Re_addresss" type="text" name="Re_addresss" />
 					</p>
 					
 				</fieldset>
-				<button type="submit" class="btn">Sign in</button>
+				<button type="submit" class="btn" id="re_btn">Sign in</button>
               
 			</form>
 		</div>

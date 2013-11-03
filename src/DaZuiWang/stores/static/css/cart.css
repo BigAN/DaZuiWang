@@ -1,0 +1,100 @@
+
+  <style type="text/css">
+   	.cooverlay-list {
+   		list-style:none;
+   		margin:0px;} 
+  	/*.addr_item {float:left;}*/
+    .divOver{
+    	background:#eff8fe;
+    	
+    } 
+    #send_companel-content{
+    	float: left;
+    	margin-top: 20px;
+    	margin-bottom: 10px;
+    }
+    #addr_add{
+    	float: right;
+    	font-size: 12px;
+    }
+    #addr_panel{
+    	max-height: 500px;
+    	height: auto;
+    	margin-left: 10px;
+   		margin-right: 10px;
+    }
+    #time_panel{
+    	height: 60px;
+    	margin-left: 10px;
+   		margin-right: 10px;
+    }
+    #send_time{
+    	margin-top: 15px;
+    }
+
+    #pay_panel{
+    	height: 60px;
+    	margin-left: 10px;
+   		margin-right: 10px;
+    }
+    #pay_offline{
+    	margin-top: 15px;
+    }
+    #pay_online{
+    	margin-top: 15px;
+    }
+    .companel-title{
+    	width: 120px;
+    	float: left;
+    	padding-left: 5px;
+    	margin-left: 10px;
+    	margin-top: 20px;
+    	margin-bottom: 20px;
+    }
+   	.hr{
+   		height: 1px;
+   		border-bottom: 1px #8e8e8e;
+   		margin-left: 10px;
+   		margin-right: 10px;
+   		margin-bottom: 0px;
+   		margin-top: 0px;
+   		
+   		
+   	}
+  	.foodcart{
+  		margin-top:20px;
+  	}
+   	.cart_inner{
+   		width:220px;
+		height:170px;
+		position:relative;
+   	}
+   	
+	img.cart_product{
+		width:187px;
+		height:143px;
+		position:absolute;
+		left:15px;
+		top:15px;	
+	
+	}
+	.cart_product{
+    	width:220px;
+    	height:240px;
+    	float:left;
+    }
+	.description{
+		text-align:center;
+	}
+	#temp{
+		background-color:#ffffff;
+		width:220px;
+		 
+	}
+	.cart-actions{
+	margin-top:0px;
+	}
+	.product_name{
+		text-align:center;
+	}
+    </style>

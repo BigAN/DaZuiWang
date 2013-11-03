@@ -1,0 +1,189 @@
+{% load staticfiles %}
+{% load url from future %}
+
+<!DOCTYPE html>
+<!-- saved from url=(0042)http://www.bootcss.com/examples/hero.html# -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Bootstrap, from Twitter</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+	
+    <!-- Le styles -->
+    <link href="http://cdnjs.bootcss.com/ajax/libs/twitter-bootstrap/2.3.1/css/bootstrap.min.css" rel="stylesheet">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js "></script>
+	    <link href="http://cdnjs.bootcss.com/ajax/libs/twitter-bootstrap/2.3.1/css/bootstrap-responsive.min.css" rel="stylesheet">
+	    <script  src="{% static 'bootstrap.min.js' %}"></script>   
+    <style type="text/css">
+     
+	#hehe{
+	 width:900px;
+	 height:40px; 
+	}
+      body {
+		margin: 0;
+		background-color:#ffffff;
+		background-size: 1440px;
+		background-repeat:no-repeat;
+		display: compact;
+		padding-top: 10px;
+        padding-bottom: 40px;
+      }
+    .store{
+		background-image:url({% static 'big mouth_home AD-1.png' %});
+		background-size:900px 230px;
+		background-repeat:no-repeat;
+		width:920px;
+		height:250px;
+		position:relative;
+    }
+    img#top{
+		width:870px;
+		height:203px;
+		position:absolute;
+		left:15px;
+		top:12px;
+	}
+	img.product{
+		width:187px;
+		height:143px;
+		position:absolute;
+		left:15px;
+		top:15px;
+	
+	}
+	.s_img{
+		float:left;
+	}
+	.description{
+		text-align:center;
+	}
+	#temp{
+		background-color:#ffffff;
+		width:220px;
+		 
+	}
+	#map{
+		padding-right:40px;
+	}
+	#form1{
+		float:right;
+		padding-right:10px;
+	}
+    </style>
+    <script type="text/javascript">
+	$(function(){
+		$.ajax({
+            url: "{% url 'all_products' %}" ,
+            type: 'post' ,
+            success: function (data){
+                  $("#productsZone").html(data);
+            },
+            error: function (e){
+                  alert( "error" );   
+            }
+      })
+		$("#but").bind("click",function(e){
+			alert("dsafff");
+			
+			
+			$("#myModal").modal();
+		    		
+		})
+	     
+		$( '.store[productname]').bind("click" , function(e){
+            alert($( this ).attr('productname'));
+            
+            $.ajax({
+                  url: "{% url 'products' %}" ,
+                  data:{name:$( this ).attr("productname" )},
+                  type: 'post' ,
+                  success: function (data){
+                        $("#store").html(data);
+                  },
+                  error: function (e){
+                        alert( "error" );   
+                  }
+            })
+	      })
+	    $('#temp').bind("click",function(e){
+	    	alert("test");
+	    })  
+	    $('.product[productname]').bind("click" , function(e){
+	    	alert("product");
+            alert($( this ).attr('productname'));
+			$("#myModal").modal("toggle");
+	      })
+		})	 
+    </script>
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="//cdnjs.bootcss.com/ajax/libs/html5shiv/3.6.2/html5shiv.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://www.bootcss.com/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://www.bootcss.com/assets/ico/apple-touch-icon-114-precomposed.png">
+      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://www.bootcss.com/assets/ico/apple-touch-icon-72-precomposed.png">
+                    <link rel="apple-touch-icon-precomposed" href="http://www.bootcss.com/assets/ico/apple-touch-icon-57-precomposed.png">
+                                   <link rel="shortcut icon" href="http://www.bootcss.com/assets/ico/favicon.png">
+  <style type="text/css"></style></head>
+
+
+  <body>
+ 
+<div id="store">
+	<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span12 store" >
+			<img id="top" alt="140x140" src="{% static 'maidanglao.jpg'%}"  />
+		</div>
+	</div>
+	<div class="row-fluid">
+	
+		<div id="hehe" >	
+			<p class="s_img">可选标签 &nbsp;:</p><img class="s_img"  src="{% static 'big mouth_food search button1.png'%}" />
+			<img class="s_img"  src="{% static 'big mouth_food search button2.png'%}" />
+			<img class="s_img"  src="{% static 'big mouth_food search button3.png'%}" />
+			<img class="s_img"  src="{% static 'big mouth_food search button4.png'%}" />
+			<img class="s_img"  src="{% static 'big mouth_food search button5.png'%}" />
+			<img class="s_img"  src="{% static 'big mouth_food search button6.png'%}" />
+					
+			<form  id="form1" class="form-search">
+			  <input  type="text" class="input-medium search-query">
+  			  <button type="submit" class="btn">Search</button>
+			</form>
+		</div>	
+	</div>
+	<div id="selectedTag" ></div>
+	</div>
+	<div id="productsZone"> </div>	
+</div>
+</div>
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+<div id="myModal1" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  <h3 id="myModalLabel">Modal header</h3>
+</div>
+
+   <div class="modal-body">
+     <p>One fine body…</p>
+   </div>
+
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+     <button class="btn btn-primary">Save changes</button>
+   </div>
+  </div>
+  
+<div>
+<object id="ClCache" click="sendMsg" host="" width="0" height="0"></object></div></body></html>
+
+

@@ -1,23 +1,111 @@
-{% extends 'base.html' %}
-
-{% block body %}
-
-<div id="cart">
-    <h1><a href="{% url 'index' %}">{{store.name}}</a> >> Your Cart </h1>
-
-    <div class="products">
+ <link href="http://cdnjs.bootcss.com/ajax/libs/twitter-bootstrap/2.3.1/css/bootstrap.min.css" rel="stylesheet">
+<script  src="http://cdnjs.bootcss.com/ajax/libs/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>   
+ 
+<script type="text/javascript">
+  
+$(function(){
+	 var par = $('#checkout-form');
+	 $(par).hide();
+	 $('.remove-from-cart').on("click",function(e){
+		 //alert($( this ).attr("productid" ));
+		 $.ajax({
+             url: "{% url 'remove_from_cart' %}" ,
+             data:{product_id:$( this ).attr("productid" )},
+             type: 'post' ,
+             success: function (data){
+            	$("#cartModalBody").html(data);
+             },
+             error: function (e){
+                   alert( "error" );   
+             }
+       })
+	 });
+	 $('#checkout-form-toggle').click(function (e) {
+		 	//$('#foodcart').slideToggle(1000);
+		 	
+		 	$('#checkout-form').slideToggle(1000);
+		 	e.preventDefault();
+	       	
+	    });
+	$('#btn_checkout').bind("click",function(er){
+			 //alert("nihamddf");
+			 alert($("#id_phone_number").val());
+			 $.ajax({
+				data:{phone_number:$("#id_phone_number").val()},
+				type:'post',
+				url:"{% url 'checkout_cart' %}",
+				
+				success: function (data){
+		            	$("#cartModalBody").html(data);
+		             },
+		        error: function(e){
+		                   alert( "error123212" );   
+		             }
+			});
+			
+	})
+	//$('#checkout-form').serialize()
+})
+</script>
+  <style type="text/css">
+    
+   
+  	.foodcart{
+  		margin-top:20px;
+  	}
+   	.cart_inner{
+   	width:220px;
+		height:170px;
+		position:relative;
+   	}
+   	
+	img.cart_product{
+		width:187px;
+		height:143px;
+		position:absolute;
+		left:15px;
+		top:15px;	
+	
+	}
+	.cart_product{
+    	width:220px;
+    	height:240px;
+    	float:left;
+    }
+	.description{
+		text-align:center;
+	}
+	#temp{
+		background-color:#ffffff;
+		width:220px;
+		 
+	}
+	.cart-actions{
+	margin-top:20px;
+	}
+	.product_name{
+		text-align:center;
+	}
+    </style>
+	<div id="foodcart">
+	{% if info %}
+		<h3>{{info}}</h3>
+	{% else %}
+    <h2>您在<a href="{% url 'index' %}">{{store.name}}</a>的购物车 </h2>
+		<div class="container-fluid">
+	
+   
         {% for product_quantity in cart.productquantities_set.all %}
-            <div class="product">
-                {{product_quantity.product.name}}
-                <img src="{{ product_quantity.product.image.url }}"/>
-                <div class="description">
-                    {{ product_quantity.product.description }}
-                </div>
+            <div class="cart_product">
+                <div class="product_name">{{product_quantity.product.name}}</div>
+                <div class="cart_inner">
+                <img  class="cart_product" src="{{ product_quantity.product.image.url }}"/></div>
+               
                 <div class="price">
-                    {{ product_quantity.quantity }} X {{ product_quantity.product.price_string }}
+                    {{ product_quantity.quantity }} X {{ product_quantity.product.price }}元
                 </div>
 
-                <a class="remove-from-cart" href="{% url 'remove_from_cart' product_quantity.product.id %}">Remove</a>
+                <a class="remove-from-cart" productid={{product_quantity.product.id}} >去除</a>
             </div>
         {% endfor %}
     </div>
@@ -25,17 +113,16 @@
         Total: {{cart.total}}
         {% if cart.products.all %}
             <a href="#checkout" class="checkout" id="checkout-form-toggle">Checkout</a>
-            <form id="checkout-form" {% if not checkout_form.errors %} class="hidden" {% endif %} 
+            <form id="checkout-form"  
                   method="post" 
                   action="{% url 'checkout_cart' %}">
                 <h2>Payment Information</h2>
                 {% csrf_token %}
                 {{ checkout_form.as_p }}
-                <input type="submit" value="Checkout"/>
+                 <button id="btn_checkout" class="btn btn-primary">结账</button>
                 <div class="clear"></div>
             </form>
         {% endif %}
     </div>
+    {% endif %}
 </div>
-
-{% endblock %}

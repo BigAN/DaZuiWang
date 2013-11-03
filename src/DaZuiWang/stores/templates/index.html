@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<div id="store">
+	
+    {% for product in products %}
+        <div class="product">
+            {{product.name}}
+            <img src="{{ product.image.url }}"/>
+            <div class="description">
+                {{ product.description }}
+            </div>
+            <div class="price">
+                {{ product.price_string }}
+            </div>
+           
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

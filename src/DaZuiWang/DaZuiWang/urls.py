@@ -2,9 +2,10 @@ from django.conf.urls import patterns, include, url
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from views import login_view,logout_view,main_view,register_view
+from views import login_view,logout_view,main_view,register_view,address
 from stores import views as stores_view
 from bootstrap import views as test_view
+import django_braintree
 admin.autodiscover()
 
 # Uncomment the next two lines to enable the admin:
@@ -15,11 +16,20 @@ urlpatterns = patterns('',
     
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/login/$',login_view,name='login'),
+    url(r'^accounts/address$',address,name='address'),
     url(r'^accounts/logout/$',logout_view,name='logout'),
     url(r'^accounts/register/$',register_view,name='register'),
     url(r'^stores/', include('stores.urls')),
-   
-    url(r'^test/',test_view.main)
+    url(r'', include('django_braintree.urls')),
+    url(r'^$',test_view.main,name='main'),
+
+
+    # url(r'^test/gmap3/$',test_view.gmap3,name='gmap3'),
+    # url(r'^test/gmap3/$',test_view.o,name='gmap3'),
+    #url(r'^test/search/$',test_view.search,name='search'),
+    
+    #url(r'^test/intro/$',test_view.intro,name='intro')
+    
     )
 
 #url(r'^main/$', main_view), 

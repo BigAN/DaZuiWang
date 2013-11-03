@@ -1,0 +1,181 @@
+<style type="text/css">
+     
+      
+      .top{
+        position:absolute;
+      }
+      .inner{
+    background-image:url({% static 'big mouth_home AD-2.png' %});
+    
+    background-repeat:no-repeat;
+    background-size:500px 245px;
+    width:520px;
+    height:250px;
+    position:relative;
+    }
+      .cart_inner{
+      background-image:url({% static 'big mouth_home AD-2.png' %});
+      background-repeat:no-repeat;
+      width:220px;
+    height:170px;
+    position:relative;
+      }
+      #logo{
+        position:absolute;
+        left:100px;
+        top:6px;
+        margin-top:0px;
+        margin-left:0px;
+        z-index:-1;
+        width: 160px;
+        height: 100px;
+      }
+      #bar{
+        position：absolute;
+        top:0px;
+        left:0px;
+        right:0px;
+        z-index:0;
+        width:100%;
+        height:12px;
+
+    margin-top: 0px;
+      }
+      #top_layout{
+     /* margin-left:100px;*/
+      float: right;
+    /*width:100%;*/
+    height:150px;   
+      }
+      #aboutus{
+        
+        top:20px;
+      margin-left:65%;
+        z-index:0;
+    width:140px;
+    height:90px;
+
+    margin-top: 0px;
+            }
+      #member{
+      margin-left:12px;
+        position：absolute;
+        top:20px;
+      left:1000px;
+        z-index:0;
+        
+   width:140px;
+    height:90px;
+      
+    margin-top: 0px;
+      }
+      #cart{
+        position：absolute;
+        top:20px;
+      left:100px;
+        z-index:0;
+ width:140px;
+    height:90px;
+      
+    margin-top: 0px;
+      }
+
+      #home{
+      top:0px;
+        position:absolute;
+        left:350px;
+        top:140px;
+        height:60px;
+        z-index:5;
+        
+      }
+      #search{
+      
+        position:absolute;
+        left:350px;
+        top:210px;
+        
+        height:70px;
+      z-index:5;
+        }
+      #intro{
+        position:absolute;
+        right:760px;
+        top:24px;
+        width:130px;
+      z-index:1;
+
+        
+      }
+      #bill{
+        position:absolute;
+        right:580px;
+        top:-12px;
+        width:130px;
+      z-index:1;
+        
+      }   
+      #frame_left{
+      
+        position:absolute;
+        top:60px;
+        right: 1027px;
+        width:125px;
+        z-index:-2;
+      }
+      #frame_top{
+      
+        
+      float:right;
+      width:1150px;
+      z-index:-3;
+      }
+      #mdiv{
+        
+        position:absolute;
+        backgroud-color:White;
+      right:0px;
+      top:125px;
+      z-index:-3;
+        width:100%;
+        height:100%;
+        z-index:3;
+      }
+      #frame{
+        position:relative;
+        float:right;
+        right:0px;
+        top:0px;
+      width:1050px;
+        height:100%;
+        frameborder:no;
+      z-index:3;
+      padding-left:0px;
+      
+      }
+       #main{
+        margin-right:0px;
+        position:relative;
+       
+        width:100%;
+        height:1250px;
+        float:right;
+        overflow: hidden;
+      }
+      #modalframe{
+        width:100%;
+        height:100%;
+          
+      }
+    #cartModal  {
+    
+    width:  760px;
+    margin: 0px 0 0 -375px;
+    
+    }
+       #cartModalBody  {
+      max-height: 460px;
+    
+    }
+      
+    </style>

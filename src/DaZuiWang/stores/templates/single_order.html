@@ -1,0 +1,80 @@
+
+		{% ifequal order.status "finished" %}
+		<div id="message" class="status green">
+			交易已完成
+		</div>
+		{% endifequal%}
+		{% ifequal order.status "accepted" %}
+		<div id="message" class="status green">
+			已发货
+		</div>
+		{% endifequal%}
+		{% ifequal order.status "unfinished" %}
+		<div id="message" class="status grey">
+			交易无效
+		</div>
+		{% endifequal%}
+		{% ifequal order.status "ing" %}
+		<div id="message" order="{{order.id}}" class="status yellow">
+			正在进行中 <a class="agree">&nbsp;&nbsp;同意订单&nbsp;&nbsp;</a><a class="finish">完成订单&nbsp;&nbsp;</a><a class="cancel">取消订单</a>
+		</div>
+		{% endifequal%}
+		<div id="order_info" class="order_info">
+			<div class='inner_order'>
+				<table >
+					<tbody>
+						<tr >
+							<th class="th" width="200" style="margin-left:10px;" > 饿单号:{{order.id}}</th>
+							<th class="th" width="200" style="margin-left:10px;" > 下单时间:{{order.ordered_on}}</th>
+							<th class="th" width="200" style="margin-left:10px;" > 餐厅电话:{{order.store.telephone}}</th>
+						</tr>
+						<tr>
+							<th class="th" width="200">饿单地址:{{order.address}}</th>
+							<th class="th" width="200">联系电话:{{user.get_profile.cellphone}}</th>
+							<th class="th" width="200">饿单备注:{{order.notes}}</th>
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div>
+			<!-- <HR class='hr'> --></div>
+			<div id="order_detail" class="order_detail">
+				<div class='inner_order'>
+					<table id='order_detail_table' class="table order_detail_table" id="example-default">
+						<thead>
+							<tr>
+								<th width='500'>美食篮子</th>
+								<th width='50'>单价</th>
+								<th width='50'>数量</th>
+								<th width='50'>小计</th>
+							</tr>
+						</thead>
+						<tbody>
+							{%  for product_quantity in order.productquantities_set.all%}
+							<tr>
+								<td>{{product_quantity.product.name}}</td>
+								<td>{{product_quantity.product.price}}</td>
+								<td>{{product_quantity.quantity}}</td>
+								<td>{{product_quantity.product_price}}元</td>
+							</tr>
+							{%endfor%}
+						</tbody>
+					</table>
+					<table class="table table-bordered table-striped" id="example-default">
+						<tr >
+							<th width="200"> 合计</th>
+							<th width="200"> 数量</th>
+							<th width="200"> 小计</th>
+						</tr>
+						<tr>
+							<th width="200"> </th>
+							<th width="200">{{order.total_num}} </th>
+							<th width="200"> {{order.total}}</th>
+						</tr>
+					</table>
+				</div>
+
+			</div>
+	

@@ -1,0 +1,96 @@
+<style type="text/css">
+
+
+.item{
+  max-height:225px;
+
+}
+.img_item{
+  height:225px;
+  width: 100%;
+}  
+#store{
+ margin-right:20px;
+}
+#select{
+  height: 65px;
+}
+#selectTag{
+ min-width: 400px;
+ width:500px;
+ height:62px;
+ float: left;
+}
+.category{
+
+ width:80px;
+ max-width:100px;
+ height:22px;
+ margin-left:5px;
+ margin-right:5px;  
+
+}
+/*未点击过的链接*/
+a:link { color: #EEEEE0; text-decoration: none}
+/*已点击过的链接*/
+a:visited { color: #FF3399; text-decoration: none}
+/*鼠标停留在上面的链接*/
+a:hover { color: #000000;bcakground-color:'#EE0000'; text-decoration: underline}
+/*当前激活的链接*/
+a:active { color: #ffffff; text-decoration: underline}
+
+
+.foodcart{
+  margin-top:20px;
+}
+
+img.search_product{
+  width:187px;
+  height:143px;
+  position:absolute;
+  left:15px;
+  top:15px;	
+
+}
+.search_product{
+ width:220px;
+ height:240px;
+ float:left;
+}
+
+img.search_store{
+  width:187px;
+  height:143px;
+  position:absolute;
+  left:15px;
+  top:15px; 
+
+}
+.search_store{
+ width:220px;
+ height:240px;
+ float:left;
+}
+
+.description{
+  text-align:center;
+}
+#temp{
+  background-color:#ffffff;
+  width:220px;
+
+}
+.cart-actions{
+	margin-top:20px;
+}
+.product_name{
+  text-align:center;
+}
+#searchpanel{
+  width: 300px;
+  float: left;
+  margin-top: 20px;
+
+} 
+
+</style>

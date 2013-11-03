@@ -1,0 +1,202 @@
+{% load staticfiles %}
+{% load url from future %}
+
+<!DOCTYPE html>
+<!-- saved from url=(0042)http://www.bootcss.com/examples/hero.html# -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<title>大嘴网</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js "></script>
+<!-- Le styles -->
+<script src ="{% static 'bootstrap.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'bootstrap-tables.css'%}">
+<link rel="stylesheet" type="text/css" href="{% static 'tablecloth.css'%}">
+<link rel="stylesheet" type="text/css" href="{% static 'prettify.css'%}">
+<link rel="stylesheet" type="text/css" href="{% static 'jquery.metadata.js'%}">
+<link rel="stylesheet" type="text/css" href="{% static 'jquery.tablecloth.js'%}">
+<link rel="stylesheet" type="text/css" href="{% static 'jquery.tablesorter.js'%}">
+<link rel="stylesheet" type="text/css" href="{% static 'jquery.tablesorter.min.js'%}">
+<link rel="stylesheet" type="text/css" href="{% static 'jquery.tablesorter.min.js'%}">
+<link rel="stylesheet" type="text/css" href="{% static 'jquery.tablesorter.min.js'%}">
+<link rel="stylesheet" type="text/css" href="{% static 'jquery.tablesorter.min.js'%}">
+<style type="text/css">
+.gray {
+	border: 3px solid #ccc;
+	color: #666;
+}
+.yellow{
+	border: 3px solid #FFD700;
+	color: #FFEC8B;	
+}
+.green {
+	border: 3px solid #a7e18b;
+	color: #2b7c28;
+}
+
+.status {
+	position: absolute;
+	left: -10px;
+	top: 10px;
+	width: auto;
+	font-size: 16px;
+	background: #fff;
+	border-radius: 4px;
+	box-shadow: 1px 1px 2px #DDD;
+	padding: 0px 19px 0px 14px;
+	color: #666;
+}
+#order_info{
+
+	width: 700px;
+}
+#order_detail_table thead tr{
+	width: 200px;
+}
+#order_detail{
+	width: 700px;
+}
+#order{
+	float: left;
+	margin-left: 20px;
+}
+.inner_order{
+
+	padding: 10px;
+}
+.order_info{
+	margin-top: 20px;
+	float: left;
+	border: 1px solid #000000;
+}
+.order_detail{
+	float: left;
+	border: 1px solid #000000;
+}
+th{
+	text-align: left;
+}
+.all{
+	float: left;
+	margin: 10px 0px 10px 0px;
+	position: relative;
+	width: 720px;
+	height: auto;
+	/*border: 3px solid #a7e18b;*/
+}
+
+.hr{
+	float: left;
+	height: 2px;
+	border-bottom: 2px #8e8e8e;
+	margin-left: 10px;
+	margin-right: 10px;
+	width: 100%;
+
+}
+.th{
+	padding-left: 10px;
+}
+
+</style>
+<script type='text/javascript'>
+$(function(){
+	$("#order_detail_table").tablecloth({
+		theme: "default",
+		bordered: false,
+		condensed: true,
+		striped: true,
+		sortable: true,
+		clean: true,
+		cleanElements: "th td",
+		customClass: "my-table"
+	});
+})
+</script>
+</head>
+<div id='order'>
+	{% if orders %}
+	{% for order in orders%}
+	<div class='all'>
+		{% ifequal order.status "finished" %}
+		<div id="message" class="status green">
+			交易已完成
+		</div>
+		{% endifequal%}
+		{% ifequal order.status "unfinished" %}
+		<div id="message" class="status grey">
+			交易无效
+		</div>
+		{% endifequal%}
+		{% ifequal order.status "ing" %}
+		<div id="message" class="status yellow">
+			正在进行中 <a>取消订单</a>
+		</div>
+		{% endifequal%}
+		<div id="order_info" class="order_info">
+			<div class='inner_order'>
+				<table >
+					<tbody>
+						<tr >
+							<th class="th" width="200" style="margin-left:10px;" > 饿单号:{{order.id}}</th>
+							<th class="th" width="200" style="margin-left:10px;" > 下单时间:{{order.ordered_on}}</th>
+							<th class="th" width="200" style="margin-left:10px;" > 餐厅电话:{{order.store.telephone}}</th>
+						</tr>
+						<tr>
+							<th class="th" width="200">饿单地址:{{order.address}}</th>
+							<th class="th" width="200">联系电话:{{user.get_profile.cellphone}}</th>
+							<th class="th" width="200">饿单备注:{{order.notes}}</th>
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div>
+			<!-- <HR class='hr'> --></div>
+			<div id="order_detail" class="order_detail">
+				<div class='inner_order'>
+					<table id='order_detail_table' class="table" id="example-default">
+						<thead>
+							<tr>
+								<th width='500'>美食篮子</th>
+								<th width='50'>单价</th>
+								<th width='50'>数量</th>
+								<th width='50'>小计</th>
+							</tr>
+						</thead>
+						<tbody>
+							{%  for product_quantity in order.productquantities_set.all%}
+							<tr>
+								<td>{{product_quantity.product.name}}</td>
+								<td>{{product_quantity.product.price}}</td>
+								<td>{{product_quantity.quantity}}</td>
+								<td>{{product_quantity.product_price}}元</td>
+							</tr>
+							{%endfor%}
+						</tbody>
+					</table>
+					<table class="table table-bordered table-striped" id="example-default">
+						<tr >
+							<th width="200"> 合计</th>
+							<th width="200"> 数量</th>
+							<th width="200"> 小计</th>
+						</tr>
+						<tr>
+							<th width="200"> </th>
+							<th width="200">{{order.total_num}} </th>
+							<th width="200"> {{order.total}}</th>
+						</tr>
+					</table>
+				</div>
+
+			</div>
+		</div>
+		{%endfor%}
+		{% else%}
+		<h3 id="empty">您的订单为空！
+		</h3>
+		{% endif%}
+	</div>

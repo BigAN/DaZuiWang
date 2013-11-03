@@ -9,6 +9,8 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+AUTH_PROFILE_MODULE = 'Myadmin.UserProfile'
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
@@ -36,7 +38,9 @@ TIME_ZONE = 'Asia/Chongqing'
 # http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'zh-cn'
 
-SITE_ID = 1
+FILE_CHARSET='utf-8'
+
+SITE_ID = 1 
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
@@ -79,6 +83,8 @@ STATICFILES_DIRS = (
                     os.path.join(ROOT,'js/locales'),
                     os.path.join(ROOT,'css'),
                     os.path.join(ROOT,'less'),
+                    
+                    os.path.join(ROOT,'img'),
             
 # strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
@@ -104,7 +110,7 @@ TEMPLATE_LOADERS = (
 )
 
 MIDDLEWARE_CLASSES = (
-    'middleware.middleware.SubdomainMiddleware',
+    #"django_common.middleware.WWWRedirectMiddleware",
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     #'django.middleware.csrf.CsrfViewMiddleware',
@@ -119,6 +125,13 @@ ROOT_URLCONF = 'DaZuiWang.urls'
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'DaZuiWang.wsgi.application'
     
+
+IS_DEV="yes"
+IS_PROD="yes"
+#DOMAIN_NAME="stbigmouth.com.au"
+DOMAIN_NAME="www.test.com"
+
+WWW_ROOT="www"
 
 TEMPLATE_DIRS = (
     os.path.join(ROOT,'Template'),
@@ -138,8 +151,25 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'stores',
     'bootstrap',
+    'Myadmin',
     'south',
+    'django_common',
+    "django_braintree",
     
+    
+)
+
+BRAINTREE_MERCHANT = 'zyr39d95p83gcf6z'
+BRAINTREE_PUBLIC_KEY = '5tzg943xmcc24jgd'
+BRAINTREE_PRIVATE_KEY = 'fb2ca740b92bcc832abeecaf9de63922'
+
+from braintree import Configuration, Environment
+
+Configuration.configure(
+    Environment.Sandbox,
+    BRAINTREE_MERCHANT,
+    BRAINTREE_PUBLIC_KEY,
+    BRAINTREE_PRIVATE_KEY
 )
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
@@ -176,6 +206,7 @@ LOGGING = {
 }
 LOGIN_URL='/users/login/'
 
+
 TEMPLATE_CONTEXT_PROCESSORS=(
     "django.contrib.auth.context_processors.auth",
     "django.core.context_processors.debug",
@@ -184,4 +215,10 @@ TEMPLATE_CONTEXT_PROCESSORS=(
     "django.core.context_processors.static",
     "django.contrib.messages.context_processors.messages",
     "django.core.context_processors.request",
+    'django_common.context_processors.common_settings',
+)
+
+AUTHENTICATION_BACKENDS = (
+        'django_common.auth_backends.EmailBackend',
+        'django.contrib.auth.backends.ModelBackend'
 )

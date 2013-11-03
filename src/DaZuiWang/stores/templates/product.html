@@ -1,0 +1,53 @@
+
+   <style type="text/css">
+    
+   
+    img.store{
+		width:187px;
+		height:143px;
+		position:absolute;
+		left:15px;
+		top:15px;
+	}
+	img.product{
+		width:441px;
+		height:203px;
+		position:absolute;
+		left:30px;
+		top:20px;
+	
+	}
+	.description{
+		text-align:center;
+	}
+	#temp{
+		background-color:#00ff00;
+		width:220px;
+		 
+	}
+    </style>
+  <div id="store">
+	<div class="container-fluid">
+	
+	<div class="row-fluid">
+ 
+		<div class="span12">
+            <div class='inner'>
+			<img class="product" productname={{product.name}} width="100px" height="100px" src="{{ product.image.url }}"/>
+            </div>
+		    <div class="price">
+                	价格：{{ product.price }}    
+                	库存:{{ product.quantity }}        
+            </div>
+            <div>
+            </div>
+            
+        </div>
+    
+    	
+        	
+</div>
+  </div> <!-- /container -->
+</div>
+
+

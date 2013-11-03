@@ -1,0 +1,8 @@
+	    {% for product in products %}
+	            <div class="search_product">
+	                <div class="product_name">{{product.name}}</div>
+	                <div class="search_inner">
+	                <img  class="search_product" src="{{ product.image.url }}"/></div>
+	                <a class="remove-from-cart" productid={{product.id}} >去除</a>
+	            </div>
+	        {% endfor %}

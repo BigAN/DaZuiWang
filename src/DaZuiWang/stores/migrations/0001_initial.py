@@ -12,6 +12,8 @@ class Migration(SchemaMigration):
         db.create_table(u'stores_store', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('name', self.gf('django.db.models.fields.CharField')(max_length=255)),
+            ('image', self.gf('django.db.models.fields.files.ImageField')(max_length=100)),
+            ('description', self.gf('django.db.models.fields.TextField')()),
         ))
         db.send_create_signal(u'stores', ['Store'])
 
@@ -148,7 +150,9 @@ class Migration(SchemaMigration):
         },
         u'stores.store': {
             'Meta': {'object_name': 'Store'},
+            'description': ('django.db.models.fields.TextField', [], {}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'image': ('django.db.models.fields.files.ImageField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '255'})
         }
     }

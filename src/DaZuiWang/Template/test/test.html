@@ -1,0 +1,220 @@
+{% load staticfiles %}
+{% load url from future %}
+
+<!DOCTYPE html>
+<!-- saved from url=(0042)http://www.bootcss.com/examples/hero.html# -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Bootstrap, from Twitter</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js "></script>
+	
+	<link href="http://cdnjs.bootcss.com/ajax/libs/twitter-bootstrap/2.3.1/css/bootstrap.min.css" rel="stylesheet">
+	
+	<script src="{% static 'bootstrap.min.js' %}" type="text/javascript"></script>  
+	<link href="{% static 'datepicker.css' %}" rel="stylesheet">
+
+	<script src="{% static 'bootstrap-datepicker.js' %}" type="text/javascript"></script>  
+    <style type="text/css">
+      body {
+		margin: 0;
+		background-image: url({% static 'background1.png'%});
+		background-size: 1440px;
+		background-repeat:no-repeat;
+		display: compact;
+		padding-top: 10px;
+        padding-bottom: 40px;
+      }
+      .top{
+      	position:absolute;
+      }
+      .inner{
+		background-image:url({% static 'big mouth_home AD-2.png' %});
+		
+		background-repeat:no-repeat;
+		background-size:500px 245px;
+		width:520px;
+		height:250px;
+		position:relative;
+    }
+      #logo{
+      	position:absolute;
+      	left:100px;
+      	top:6px;
+      	margin-top:0px;
+      	margin-left:0px;
+      	z-index:-1;
+      }
+      #bar{
+      	position：absolute;
+      	top:0px;
+      	left:0px;
+      	right:0px;
+      	z-index:0;
+      	width:100%;
+      	height:15px;
+      }
+      #top_layout{
+     	margin-left:100px;
+		width:1250px;
+		height:113px; 	
+      }
+      #aboutus{
+      	floating:left;
+      	margin-top:20px;	
+      	margin-left:700px;
+      	z-index:0;
+		width:130px;
+		height:85px;
+            }
+      #member{
+       	floating:left;
+       	
+      	margin-top:20px;
+      	margin-left:860px;
+      	z-index:0;
+      	
+		width:130px;
+		height:85px;
+      
+      }
+      #cart{
+      	floating:left;
+      	
+      	margin-top:20px;
+      	margin-left:1000px;
+      	z-index:0;
+		width:130px;
+		height:85px;
+      
+      }
+      #main{
+      	margin-left:130px;
+      	position:relative;
+	  	width:1250px;
+		height:924px; 	
+      }
+      #home{
+	  	top:0px;
+      	position:absolute;
+      	left:50px;
+      	top:50px;
+      	height:57px;
+      	z-index:0;
+      	
+      }
+      #search{
+      
+      	position:absolute;
+      	left:50px;
+      	top:120px;
+      	
+      	height:65px;
+    	z-index:0;
+      	}
+      #intro{
+      	position:absolute;
+      	left:300px;
+      	top:-10px;
+      	width:140px;
+    	z-index:1;
+      	
+      }
+      #bill{
+      	position:absolute;
+      	left:500px;
+      	top:-20px;
+      	width:140px;
+    	z-index:1;
+      	
+      }		
+      #frame_left{
+      
+      	position:absolute;
+      	top:3px;
+      	left:110px;
+      	height:1430px;
+      	z-index:-2;
+      }
+      #frame_top{
+      
+      	position:absolute;
+     	left:111px;
+     	
+     	width:1100px;
+     	z-index:-3;
+      }
+      #mdiv{
+      	
+      	position:absolute;
+      	backgroud-color:White;
+     	left:230px;
+     	top:90px;
+     	z-index:-3;
+      	width:100%;
+      	height:100%;
+      	z-index:3;
+      }
+      #frame{
+      	position:abolute;
+      	left:0px;
+      	top:0px;
+    	width:975px;
+      	height:100%;
+      	frameborder:no;
+    	z-index:3;
+      }
+      
+      #modalframe{
+      	width:100%;
+      	height:100%;
+      	
+      }
+    </style>
+    <script type="text/javascript">
+   
+    $(function(){
+    	 $('#dp1').datepicker();
+    });    
+    
+  
+    	
+    
+    
+    </script>
+    <link href="http://cdnjs.bootcss.com/ajax/libs/twitter-bootstrap/2.3.1/css/bootstrap-responsive.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="//cdnjs.bootcss.com/ajax/libs/html5shiv/3.6.2/html5shiv.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://www.bootcss.com/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://www.bootcss.com/assets/ico/apple-touch-icon-114-precomposed.png">
+      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://www.bootcss.com/assets/ico/apple-touch-icon-72-precomposed.png">
+                    <link rel="apple-touch-icon-precomposed" href="http://www.bootcss.com/assets/ico/apple-touch-icon-57-precomposed.png">
+                                   <link rel="shortcut icon" href="http://www.bootcss.com/assets/ico/favicon.png">
+  <style type="text/css"></style></head>
+
+
+  <body>
+    
+
+<input type="text" value="05/20/2013"  id="dp1">
+
+
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+ 
+
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+  
+<div><object id="ClCache" click="sendMsg" host="" width="0" height="0"></object></div></body></html>
