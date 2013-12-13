@@ -35,13 +35,13 @@
 		-khtml-opacity: 0.5;
 		opacity: 0.5;
 	}*/
-#empty{
-	margin-bottom: 20px;
-}
+	#empty{
+		margin-bottom: 20px;
+	}
 	#result{
 		
 		max-height: 1300px;
-		overflow-y: visible;
+		overflow-y: scroll;
 		overflow-x:visible;
 		
 		padding-top: 20px;
@@ -52,7 +52,7 @@
 		float: left;
 		background-image: url({% static 'profile_big.png'%});
 		background-size: 100% 100%;
-	
+
 	}
 	.main{
 		margin: 0;
@@ -64,13 +64,13 @@
 		padding-bottom: 20px;
 		min-width: 700px;
 		float: right;
-    	background-image: url({% static 'shadow.png'%});
-    	margin-top: 20px;
+		background-image: url({% static 'shadow.png'%});
+		margin-top: 20px;
 	}
 	.profile{
 		background-image: url({% static 'profile.png'%});
 		background-size: 100% 100%;
-   		background-repeat:no-repeat;
+		background-repeat:no-repeat;
 		width: 100%;
 		height: 120px;
 		min-width: 700px;
@@ -81,30 +81,28 @@
 
 	/*}*/
 	body {
-    margin: 0;
-    background-image: url({% static 'background1.png'%});
-    background-size: 100% auto;
-    background-repeat:no-repeat;
-    display: compact;
-    padding-top: 10px;
-        padding-bottom: 0px;
-        height:auto;
-        overflow-y:scroll;
-      }
-      .companel-title{
-    	padding: 8px 14px;
-    	
-    }
-    .right{
-    	padding: 0px 0px 0px 0px;
-    }
+		margin: 0;
+		background-image: url({% static 'background1.png'%});
+		background-size: 100% auto;
+		background-repeat:no-repeat;
+		display: compact;
+		padding-top: 10px;
+		padding-bottom: 0px;
+		height:auto;
+		overflow-y:scroll;
+	}
+	.companel-title{
+		padding: 8px 14px;
+
+	}
+	.right{
+		padding: 0px 0px 0px 0px;
+	}
 </style>
 <script type="text/javascript">
 $(function(){
-	
+	alert("aaa");
 	var winwidth=$(window).width();
-
-	
 	if(winwidth>=1700){
         //alert(winwidth);
         $("<link>")
@@ -142,9 +140,9 @@ $(function(){
     	/* Act on the event */
     	// alert("a");
     	var url=$(this).attr('href')
-    	alert(url);
-    	if (url=="person") {
-
+    	// alert(url);
+    	if (url=="person"||url=="#tables") {
+    		
     	}else{
     		$.get(url, function(data) {
     			/*optional stuff to do after success */

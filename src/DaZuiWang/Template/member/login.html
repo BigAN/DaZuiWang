@@ -29,7 +29,7 @@ $(function(){
             	 var rdata=JSON.parse(data);
             	 
             	 if (rdata.info=="error"){
-            		 alert("333");
+            		 // alert("333");
             	     $('#error').show(1000);
             	 }else{
                 	 location.href = "{% url 'main'%}";
@@ -80,10 +80,13 @@ $(function(){
 {% csrf_token %}
 			 {% if user.is_authenticated %}
 
-			 <h5><a href="{% url 'person' %}">{{user.username}}</a>已登入。</h5>
+			 <h5><a href="{% url 'person' %}">{{user.username}}</a>已登入 <a href="{% url 'logout' %}"> 退出</a> </h5>
 			 <span>
 			 	<a href="{% url 'person' %}"> 个人信息中心</a>
-			 	<a href="{% url 'logout' %}"> 退出</a>
+			 	{% if is_store %}
+			 	<a href="{% url 'store' %}"> 商户信息中心</a>
+			 	{% endif %}
+			 	
 			 </span> 
 			 {% else %}
 			 		<fieldset>

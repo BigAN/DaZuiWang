@@ -17,7 +17,7 @@ class Store(models.Model):
     description=models.TextField()
     store_quantitiy=models.IntegerField()
     telphone=models.CharField(max_length=255,verbose_name="电话")
-
+    
     lat=models.DecimalField(max_digits=10,decimal_places=6)
     lon=models.DecimalField(max_digits=10,decimal_places=6)
     def __unicode__(self):

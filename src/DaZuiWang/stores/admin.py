@@ -9,7 +9,7 @@ from django.contrib.auth.models import Group
 
 from stores import models
 
-admin.site.unregister(Group)
+#admin.site.unregister(Group)
 admin.site.unregister(Site)
 
 class ProductInline(admin.TabularInline):

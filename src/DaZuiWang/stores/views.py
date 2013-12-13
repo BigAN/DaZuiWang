@@ -18,7 +18,10 @@ from stores import forms, models
 from stores.models import Product,Store
 
 def registerHtml(request):
-    return render(request,'member/login.html')
+    is_store=request.user.groups.filter(name='store')
+    d={}
+    d['is_store']=is_store
+    return render(request,'member/login.html',d)
 
 def all_products(request):
     products=Product.objects.all();
@@ -88,15 +91,26 @@ def order(request):
         if para=="agree":
             order=models.Order.objects.get(id=id)
             order.agree_order()
-            return render(request,'single_order.html',{'order':order})
+            orders=request.user.order_set.all()
+
+            orders=orders.order_by("-ordered_on")
+            print orders
+            # return render(request,'single_order.html',{'order':order})
+            return render(request,'storeorder.html',{'orders':orders})
         elif para=="cancel":
             order=models.Order.objects.get(id=id)
             order.cancel_order()
-            return render(request,'single_order.html',{'order':order})
+            orders=request.user.order_set.all()
+            orders=orders.order_by("-ordered_on")
+            # return render(request,'single_order.html',{'order':order})
+            return render(request,'storeorder.html',{'orders':orders})
         elif para=="finish":
             order=models.Order.objects.get(id=id)
             order.cancel_order()
-            return render(request,'single_order.html',{'order':order})
+            orders=request.user.order_set.all()
+            orders=orders.order_by("-ordered_on")
+            # return render(request,'single_order.html',{'order':order})
+            return render(request,'storeorder.html',{'orders':orders})
     else:
         orders=request.user.order_set.all()
         print orders

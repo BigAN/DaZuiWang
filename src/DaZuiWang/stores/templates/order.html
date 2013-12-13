@@ -61,6 +61,11 @@
 #order{
 	float: left;
 	margin-left: 20px;
+	overflow-x: visible;
+	margin-left: 30px;
+	width: 90%;
+	min-width: 500px;
+	/*overflow-y: scroll;*/
 }
 .inner_order{
 
@@ -113,6 +118,19 @@ $(function(){
 		cleanElements: "th td",
 		customClass: "my-table"
 	});
+	$(".cancel").on('click',  function(event) {
+		// event.preventDefault();
+		/* Act on the event */
+		// alert("aaa");
+		var id=$(this).parent().attr('order');
+		$.post("{% url 'cancel_order'%}", {name: 'cancel',
+					id:id,}, function(data) {
+						/*optional stuff to do after success */
+						// alert(data);
+						$('#order').html(data);
+					});
+
+	});
 })
 </script>
 </head>
@@ -125,14 +143,19 @@ $(function(){
 			交易已完成
 		</div>
 		{% endifequal%}
+		{% ifequal order.status "accepted" %}
+		<div id="message" class="status green">
+			已发货<a class="cancel">取消订单</a>
+		</div>
+		{% endifequal%}
 		{% ifequal order.status "unfinished" %}
 		<div id="message" class="status grey">
 			交易无效
 		</div>
 		{% endifequal%}
 		{% ifequal order.status "ing" %}
-		<div id="message" class="status yellow">
-			正在进行中 <a>取消订单</a>
+		<div id="message" order="{{order.id}}" class="status yellow">
+			正在进行中 <a class="cancel">&nbsp;&nbsp;取消订单</a>
 		</div>
 		{% endifequal%}
 		<div id="order_info" class="order_info">

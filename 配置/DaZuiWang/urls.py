@@ -25,7 +25,7 @@ urlpatterns = patterns('',
     url(r'^$',test_view.main,name='main'),
 
 
-    url(r'^test/gmap3/$',test_view.gmap3,name='gmap3'),
+    # url(r'^test/gmap3/$',test_view.gmap3,name='gmap3'),
     # url(r'^test/gmap3/$',test_view.o,name='gmap3'),
     #url(r'^test/search/$',test_view.search,name='search'),
     
